@@ -55,7 +55,7 @@ export default function BottomNavigation() {
                   <MapPin className="h-5 w-5 text-gray-700" />
                 </div>
                 <span>エリアレポート</span>
-                <span className="text-xs text-gray-500 mt-1">汚れている場所を報告</span>
+                <span className="text-xs text-gray-500 mt-1">付近の汚れ具合を報告</span>
               </Button>
             </Link>
             <Link href="/post/cleaning-report" onClick={() => setShowMenu(false)}>
@@ -77,7 +77,7 @@ export default function BottomNavigation() {
                 <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-2">
                   <Calendar className="h-5 w-5 text-gray-700" />
                 </div>
-                <span>予約済みミッション</span>
+                <span>専用ミッション</span>
                 <span className="text-xs text-gray-500 mt-1">予約の確認・開始</span>
               </Button>
             </Link>

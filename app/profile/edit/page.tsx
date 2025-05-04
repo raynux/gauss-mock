@@ -11,6 +11,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Camera, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { Textarea } from "@/components/ui/textarea"
 
 export default function ProfileEditPage() {
   const [gender, setGender] = useState("male")
@@ -58,6 +59,16 @@ export default function ProfileEditPage() {
             <div className="space-y-2">
               <Label htmlFor="name">名前</Label>
               <Input id="name" defaultValue="ユーザーさん" />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="bio">自己紹介</Label>
+              <Textarea
+                id="bio"
+                placeholder="自己紹介文を入力してください"
+                defaultValue="東京都在住。環境保全活動に熱心に取り組んでいます。週末は主に渋谷区周辺でゴミ拾いボランティアに参加しています。一緒に活動できる仲間を募集中です！"
+                className="min-h-[100px]"
+              />
             </div>
 
             <div className="space-y-2">
@@ -136,8 +147,12 @@ export default function ProfileEditPage() {
               <Input id="instagram" placeholder="username" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="tiktok">TikTok</Label>
-              <Input id="tiktok" placeholder="@username" />
+              <Label htmlFor="facebook">Facebook</Label>
+              <Input id="facebook" placeholder="username" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="website">ウェブサイト</Label>
+              <Input id="website" placeholder="https://example.com" />
             </div>
           </CardContent>
         </Card>

@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { MapPin, Users } from "lucide-react"
@@ -130,7 +129,7 @@ export default function BoundaryDetailPage({ params }: { params: { id: string } 
             <div className="space-y-4">
               {[
                 {
-                  title: "ゴミ拾い（一般）",
+                  location: "渋谷川周辺",
                   owner: { name: "渋谷クリーンチーム", avatar: "/placeholder.svg?height=32&width=32&text=渋谷" },
                   budget: 2000,
                   maxReward: 200,
@@ -138,7 +137,7 @@ export default function BoundaryDetailPage({ params }: { params: { id: string } 
                     "渋谷川周辺のゴミ拾いプロジェクトです。最近の雨で川沿いにゴミが増えています。地域の環境を守るため、みんなで協力して清掃活動を行いましょう。",
                 },
                 {
-                  title: "プラスチック回収",
+                  location: "宮益坂付近",
                   owner: { name: "エコプロジェクト", avatar: "/placeholder.svg?height=32&width=32&text=エコ" },
                   budget: 1500,
                   maxReward: 250,
@@ -146,7 +145,7 @@ export default function BoundaryDetailPage({ params }: { params: { id: string } 
                     "川沿いのプラスチックゴミを重点的に回収するミッションです。リサイクル可能なプラスチックを分別して回収してください。",
                 },
                 {
-                  title: "写真撮影",
+                  location: "渋谷駅東口",
                   owner: { name: "渋谷区役所", avatar: "/placeholder.svg?height=32&width=32&text=区役所" },
                   budget: 1000,
                   maxReward: 150,
@@ -160,7 +159,7 @@ export default function BoundaryDetailPage({ params }: { params: { id: string } 
                       <AvatarImage src={mission.owner.avatar || "/placeholder.svg"} alt={mission.owner.name} />
                       <AvatarFallback>{mission.owner.name.charAt(0)}</AvatarFallback>
                     </Avatar>
-                    <h3 className="font-medium">{mission.title}</h3>
+                    <h3 className="font-medium">{mission.location}</h3>
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 mb-3">
@@ -182,33 +181,29 @@ export default function BoundaryDetailPage({ params }: { params: { id: string } 
         </Card>
 
         <Card className="mb-6">
-          <CardHeader className="pb-2">
+          <CardHeader className="pb-2 flex flex-row items-center justify-between">
             <CardTitle className="text-lg">参加者</CardTitle>
+            <span className="text-sm text-gray-500 font-normal">12人</span>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="flex items-center">
-                  <Avatar className="h-8 w-8 mr-3">
-                    <AvatarImage
-                      src={`/placeholder.svg?key=p8uxu&key=03nd4&key=ev623&key=i0hm7&height=32&width=32&text=U${i}`}
-                      alt={`ユーザー${i}`}
-                    />
-                    <AvatarFallback>U{i}</AvatarFallback>
-                  </Avatar>
-                  <p className="font-medium">ユーザー{i}</p>
+            <div className="grid grid-cols-4 gap-2">
+              {Array.from({ length: 12 }).map((_, i) => (
+                <div key={i} className="flex flex-col items-center group">
+                  <Link href={`/user/user-${i + 1}`} className="block">
+                    <Avatar className="h-12 w-12 mb-1 border-2 border-white shadow-sm transition-transform group-hover:scale-110">
+                      <AvatarImage
+                        src={`/placeholder.svg?key=740v1&key=izxix&key=7wspb&key=p8uxu&key=03nd4&key=ev623&key=i0hm7&height=48&width=48&text=U${i + 1}`}
+                        alt={`ユーザー${i + 1}`}
+                      />
+                      <AvatarFallback>U{i + 1}</AvatarFallback>
+                    </Avatar>
+                  </Link>
+                  <p className="text-xs font-medium truncate w-full text-center">ユーザー{i + 1}</p>
                 </div>
               ))}
-              <Button variant="outline" size="sm" className="w-full">
-                すべての参加者を見る
-              </Button>
             </div>
           </CardContent>
         </Card>
-
-        <div className="text-center text-sm text-gray-500 mt-2">
-          ミッションに参加するには、下部メニューの「投稿」→「清掃レポート」から行ってください。
-        </div>
       </div>
     </div>
   )

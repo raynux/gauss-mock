@@ -142,7 +142,7 @@ export default function AchievementsPage() {
                       {Array.from({ length: item.photoCount }).map((_, j) => (
                         <div key={j} className="aspect-square bg-gray-100 rounded overflow-hidden">
                           <Image
-                            src={`/placeholder.svg?key=j75nv&key=b69vg&key=8zii0&key=4xmd6&key=38j5r&height=40&width=40&text=写真${j + 1}`}
+                            src={`/placeholder.svg?key=9db21&key=j75nv&key=b69vg&key=8zii0&key=4xmd6&key=38j5r&height=40&width=40&text=写真${j + 1}`}
                             width={40}
                             height={40}
                             alt={`写真 ${j + 1}`}
@@ -169,7 +169,7 @@ export default function AchievementsPage() {
                 <div className="flex items-start space-x-3">
                   <div className="w-20 h-20 bg-gray-100 rounded overflow-hidden flex-shrink-0">
                     <Image
-                      src={`/placeholder.svg?key=skg28&key=41o2p&key=nsi7d&key=8iotg&key=8mywh&height=80&width=80&text=清掃${item.id}`}
+                      src={`/placeholder.svg?key=oedyx&key=skg28&key=41o2p&key=nsi7d&key=8iotg&key=8mywh&height=80&width=80&text=清掃${item.id}`}
                       width={80}
                       height={80}
                       alt={`清掃写真 ${item.id}`}
@@ -224,7 +224,7 @@ export default function AchievementsPage() {
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden flex-shrink-0 relative">
                     <Image
-                      src={`/placeholder.svg?key=g4zlo&key=xtnht&key=00r2c&key=v0jb8&height=64&width=64&text=ミッション${i}`}
+                      src={`/placeholder.svg?key=lvlug&key=g4zlo&key=xtnht&key=00r2c&key=v0jb8&height=64&width=64&text=ミッション${i}`}
                       width={64}
                       height={64}
                       alt={`ミッション ${i}`}
@@ -240,7 +240,7 @@ export default function AchievementsPage() {
                   <div className="flex-1">
                     <div className="flex items-center text-sm text-gray-500 mb-1">
                       <BadgeCheck className="w-4 h-4 mr-1 text-teal-500" />
-                      <span>完了: {i}ヶ月前</span>
+                      <span>{i}ヶ月前</span>
                     </div>
 
                     <div className="flex items-center text-sm text-gray-500 mb-1">
@@ -286,7 +286,7 @@ export default function AchievementsPage() {
             <div className="flex items-center gap-3 mb-2">
               <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden">
                 <Image
-                  src={`/placeholder.svg?key=zt48p&key=rtv79&key=ygfwx&key=v0jb8&height=64&width=64&text=ミッション${editingMission || 1}`}
+                  src={`/placeholder.svg?key=3sc5e&key=zt48p&key=rtv79&key=ygfwx&key=v0jb8&height=64&width=64&text=ミッション${editingMission || 1}`}
                   width={64}
                   height={64}
                   alt={`ミッション`}
