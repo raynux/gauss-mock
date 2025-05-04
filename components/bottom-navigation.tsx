@@ -62,7 +62,7 @@ export default function BottomNavigation() {
                 <span className="text-xs text-gray-500 mt-1">清掃活動を開始</span>
               </Button>
             </Link>
-            <Link href="/dedicated-mission/my-reservations" onClick={() => setShowMenu(false)}>
+            <Link href="/dedicated-mission/my-reservations" prefetch={false} onClick={() => setShowMenu(false)}>
               <Button variant="outline" className="w-full h-auto py-6 flex flex-col">
                 <Calendar className="h-8 w-8 mb-2" />
                 <span>予約済みミッション</span>

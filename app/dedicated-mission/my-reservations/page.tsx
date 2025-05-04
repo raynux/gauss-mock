@@ -74,55 +74,58 @@ export default function MyReservationsPage() {
             },
           ].map((reservation) => (
             <Card key={reservation.id} className="overflow-hidden">
-              <CardContent className="p-0">
-                <div className="p-4 border-b">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-medium">{reservation.title}</h3>
-                    <Badge variant="outline" className="bg-gray-50 text-gray-600 border-gray-200">
-                      専用ミッション
-                    </Badge>
-                  </div>
+              <CardContent className="p-4">
+                <div className="flex justify-between items-start mb-3">
+                  <h3 className="font-medium text-lg">{reservation.title}</h3>
+                  <Badge variant="outline" className="bg-gray-50 text-gray-600 border-gray-200">
+                    専用ミッション
+                  </Badge>
+                </div>
 
-                  <div className="space-y-1 text-sm text-gray-500 mb-3">
-                    <div className="flex items-center">
-                      <Calendar className="w-4 h-4 mr-1" />
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div className="space-y-2">
+                    <div className="flex items-center text-sm text-gray-600">
+                      <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
                       <span>{reservation.date}</span>
                     </div>
-                    <div className="flex items-center">
-                      <Clock className="w-4 h-4 mr-1" />
+                    <div className="flex items-center text-sm text-gray-600">
+                      <Clock className="w-4 h-4 mr-2 flex-shrink-0" />
                       <span>{reservation.time}</span>
                     </div>
-                    <div className="flex items-center">
-                      <MapPin className="w-4 h-4 mr-1" />
-                      <span>{reservation.location}</span>
+                  </div>
+                  <div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
+                      <span className="line-clamp-2">{reservation.location}</span>
                     </div>
                   </div>
+                </div>
 
-                  <div className="bg-gray-50 p-2 rounded-md mb-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm">固定報酬</span>
-                      <span className="font-medium">{reservation.reward} pt</span>
-                    </div>
-                  </div>
+                <div className="bg-gray-50 p-3 rounded-md mb-4 flex justify-between items-center">
+                  <span className="text-sm font-medium">固定報酬</span>
+                  <span className="font-bold text-lg">{reservation.reward} pt</span>
+                </div>
 
-                  <div className="flex space-x-2">
-                    {canStart(reservation.time) ? (
-                      <Button className="flex-1" onClick={() => startMission(reservation.id)}>
-                        開始する
-                      </Button>
-                    ) : (
-                      <Button className="flex-1" disabled>
-                        開始時間まで待機中
-                      </Button>
-                    )}
+                <div className="flex space-x-3">
+                  {canStart(reservation.time) ? (
                     <Button
-                      variant="outline"
-                      className="flex-none"
-                      onClick={() => handleCancelReservation(reservation.id)}
+                      className="flex-1 bg-teal-600 hover:bg-teal-700"
+                      onClick={() => startMission(reservation.id)}
                     >
-                      キャンセル
+                      開始する
                     </Button>
-                  </div>
+                  ) : (
+                    <Button className="flex-1" disabled>
+                      開始時間まで待機中
+                    </Button>
+                  )}
+                  <Button
+                    variant="outline"
+                    className="flex-none border-gray-300"
+                    onClick={() => handleCancelReservation(reservation.id)}
+                  >
+                    キャンセル
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -130,11 +133,11 @@ export default function MyReservationsPage() {
 
           {/* 予約がない場合 */}
           {false && (
-            <div className="text-center py-8">
-              <Calendar className="h-12 w-12 text-gray-300 mx-auto mb-2" />
-              <p className="text-gray-500">予約済みのミッションはありません</p>
+            <div className="text-center py-12 bg-gray-50 rounded-lg border border-gray-200">
+              <Calendar className="h-12 w-12 text-gray-300 mx-auto mb-3" />
+              <p className="text-gray-500 mb-4">予約済みのミッションはありません</p>
               <Link href="/explore">
-                <Button variant="outline" className="mt-4">
+                <Button variant="outline" className="bg-white">
                   ミッションを探す
                 </Button>
               </Link>
@@ -164,44 +167,50 @@ export default function MyReservationsPage() {
             },
           ].map((reservation) => (
             <Card key={reservation.id} className="overflow-hidden">
-              <CardContent className="p-0">
-                <div className="p-4 border-b">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-medium text-gray-600">{reservation.title}</h3>
-                    <Badge
-                      variant="outline"
-                      className={
-                        reservation.status === "完了"
-                          ? "bg-green-50 text-green-600 border-green-200"
-                          : "bg-gray-50 text-gray-600 border-gray-200"
-                      }
-                    >
-                      {reservation.status}
-                    </Badge>
-                  </div>
+              <CardContent className="p-4">
+                <div className="flex justify-between items-start mb-3">
+                  <h3 className="font-medium text-lg">{reservation.title}</h3>
+                  <Badge
+                    variant="outline"
+                    className={
+                      reservation.status === "完了"
+                        ? "bg-green-50 text-green-600 border-green-200"
+                        : "bg-gray-50 text-gray-600 border-gray-200"
+                    }
+                  >
+                    {reservation.status}
+                  </Badge>
+                </div>
 
-                  <div className="space-y-1 text-sm text-gray-500 mb-3">
-                    <div className="flex items-center">
-                      <Calendar className="w-4 h-4 mr-1" />
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div className="space-y-2">
+                    <div className="flex items-center text-sm text-gray-600">
+                      <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
                       <span>{reservation.date}</span>
                     </div>
-                    <div className="flex items-center">
-                      <Clock className="w-4 h-4 mr-1" />
+                    <div className="flex items-center text-sm text-gray-600">
+                      <Clock className="w-4 h-4 mr-2 flex-shrink-0" />
                       <span>{reservation.time}</span>
                     </div>
-                    <div className="flex items-center">
-                      <MapPin className="w-4 h-4 mr-1" />
-                      <span>{reservation.location}</span>
+                  </div>
+                  <div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
+                      <span className="line-clamp-2">{reservation.location}</span>
                     </div>
                   </div>
+                </div>
 
-                  <div className="bg-gray-50 p-2 rounded-md">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm">固定報酬</span>
-                      <span className={reservation.status === "完了" ? "font-medium text-green-600" : "text-gray-400"}>
-                        {reservation.reward} pt
-                      </span>
-                    </div>
+                <div className="bg-gray-50 p-3 rounded-md">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-medium">固定報酬</span>
+                    <span
+                      className={
+                        reservation.status === "完了" ? "font-bold text-lg text-green-600" : "text-gray-400 font-medium"
+                      }
+                    >
+                      {reservation.reward} pt
+                    </span>
                   </div>
                 </div>
               </CardContent>

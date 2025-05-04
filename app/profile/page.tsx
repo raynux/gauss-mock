@@ -79,7 +79,7 @@ export default function ProfilePage() {
                 <p className="text-sm text-gray-600">2件の予約があります</p>
               </div>
             </div>
-            <Link href="/dedicated-mission/my-reservations">
+            <Link href="/dedicated-mission/my-reservations" prefetch={false}>
               <Button variant="outline" size="sm" className="border-teal-200 hover:border-teal-300 hover:bg-teal-50">
                 確認する
               </Button>
