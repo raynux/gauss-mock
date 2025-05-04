@@ -1,21 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import {
-  ArrowLeft,
-  MapPin,
-  Trash2,
-  BadgeCheck,
-  X,
-  Upload,
-  Clock,
-  DollarSign,
-  Lock,
-  Users,
-  AlertTriangle,
-} from "lucide-react"
+import { ArrowLeft, MapPin, Trash2, BadgeCheck, X, Upload } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter, useSearchParams } from "next/navigation"
@@ -25,34 +12,9 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
-import { Badge } from "@/components/ui/badge"
-
-// 汚染レベルを表示するバッジコンポーネント
-function PollutionLevelBadge({ level }: { level: number }) {
-  const getLevelInfo = (level: number) => {
-    switch (level) {
-      case 1:
-        return { label: "きれい", color: "bg-green-100 text-green-700 border-green-200" }
-      case 2:
-        return { label: "概ねきれい", color: "bg-teal-100 text-teal-700 border-teal-200" }
-      case 3:
-        return { label: "やや汚れている", color: "bg-amber-100 text-amber-700 border-amber-200" }
-      case 4:
-        return { label: "汚れている", color: "bg-red-100 text-red-700 border-red-200" }
-      default:
-        return { label: "不明", color: "bg-gray-100 text-gray-700 border-gray-200" }
-    }
-  }
-
-  const { label, color } = getLevelInfo(level)
-
-  return (
-    <div className={`flex items-center text-xs px-2 py-1 rounded-full ${color}`}>
-      <AlertTriangle className="w-3 h-3 mr-1" />
-      <span>汚染レベル: {level}</span>
-    </div>
-  )
-}
+import CleaningReportCard from "@/components/cleaning-report-card"
+import AreaReportCard from "@/components/area-report-card"
+import MissionAchievementCard from "@/components/mission-achievement-card"
 
 export default function AchievementsPage() {
   const router = useRouter()
@@ -74,21 +36,6 @@ export default function AchievementsPage() {
   const handleTabChange = (tab: string) => {
     setActiveTab(tab)
     router.push(`/profile/achievements?tab=${tab}`, { scroll: false })
-  }
-
-  // 写真の数に応じたグリッドクラスを返す関数
-  const getGridClass = (photoCount: number) => {
-    switch (photoCount) {
-      case 1:
-        return "grid-cols-1"
-      case 2:
-        return "grid-cols-2"
-      case 3:
-        return "grid-cols-3"
-      case 4:
-      default:
-        return "grid-cols-2 grid-rows-2"
-    }
   }
 
   return (
@@ -118,155 +65,109 @@ export default function AchievementsPage() {
 
         <TabsContent value="area-reports" className="space-y-4">
           {[
-            { id: 1, photoCount: 4, pollutionLevel: 3 },
-            { id: 2, photoCount: 1, pollutionLevel: 1 },
-            { id: 3, photoCount: 2, pollutionLevel: 4 },
-            { id: 4, photoCount: 3, pollutionLevel: 2 },
+            {
+              id: 1,
+              location: "渋谷区宮益坂 1丁目付近",
+              timeAgo: "2日前",
+              pollutionLevel: 3,
+              comment: "道路脇にペットボトルやビニール袋が散乱しています。早急な対応が必要です。",
+              photoCount: 4,
+            },
+            {
+              id: 2,
+              location: "渋谷区宮益坂 2丁目付近",
+              timeAgo: "4日前",
+              pollutionLevel: 1,
+              comment: "先週の清掃活動の効果で、ほとんどゴミが見当たりません。きれいな状態が続いています。",
+              photoCount: 1,
+            },
+            {
+              id: 3,
+              location: "渋谷区宮益坂 3丁目付近",
+              timeAgo: "6日前",
+              pollutionLevel: 4,
+              comment: "公園内にタバコの吸い殻や空き缶が多数散乱しています。ゴミ箱の設置が必要かもしれません。",
+              photoCount: 2,
+            },
+            {
+              id: 4,
+              location: "渋谷区宮益坂 4丁目付近",
+              timeAgo: "8日前",
+              pollutionLevel: 2,
+              comment: "少しゴミは見られますが、全体的には比較的きれいな状態です。定期的な清掃が効果を発揮しています。",
+              photoCount: 3,
+            },
           ].map((item) => (
-            <Card key={item.id}>
-              <CardContent className="p-3">
-                <div className="flex items-start">
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-1">
-                      <h3 className="font-medium">渋谷区宮益坂 {item.id}丁目付近</h3>
-                      <PollutionLevelBadge level={item.pollutionLevel} />
-                    </div>
-                    <div className="flex items-center text-xs text-gray-500 mb-1">
-                      <MapPin className="w-3 h-3 mr-1" />
-                      <span>{item.id * 2}日前</span>
-                    </div>
-                    <p className="text-sm text-gray-600 line-clamp-2">
-                      道路脇にペットボトルやビニール袋が散乱しています。早急な対応が必要です。
-                    </p>
-                    <div className={`grid ${getGridClass(item.photoCount)} gap-1 mt-2`}>
-                      {Array.from({ length: item.photoCount }).map((_, j) => (
-                        <div key={j} className="aspect-square bg-gray-100 rounded overflow-hidden">
-                          <Image
-                            src={`/placeholder.svg?key=9db21&key=j75nv&key=b69vg&key=8zii0&key=4xmd6&key=38j5r&height=40&width=40&text=写真${j + 1}`}
-                            width={40}
-                            height={40}
-                            alt={`写真 ${j + 1}`}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <AreaReportCard
+              key={item.id}
+              id={item.id}
+              location={item.location}
+              timeAgo={item.timeAgo}
+              pollutionLevel={item.pollutionLevel}
+              comment={item.comment}
+              photoCount={item.photoCount}
+            />
           ))}
         </TabsContent>
 
-        <TabsContent value="cleaning-reports" className="space-y-4">
+        <TabsContent value="cleaning-reports" className="space-y-6">
           {[
-            { id: 1, hasReward: true, rewardAmount: 150, status: "付与済み" },
-            { id: 2, hasReward: true, rewardAmount: 200, status: "審査中" },
-            { id: 3, hasReward: false, status: "対象外" },
+            {
+              id: 1,
+              location: "東京都渋谷区代々木公園付近",
+              timeAgo: "1週間前",
+              duration: 45,
+              comment: "公園内のゴミ拾いを行いました。合計で45Lのゴミ袋1つ分を回収しました。",
+              hasReward: true,
+              rewardAmount: 150,
+              status: "付与済み",
+            },
+            {
+              id: 2,
+              location: "東京都渋谷区代々木公園付近",
+              timeAgo: "2週間前",
+              duration: 60,
+              comment: "公園内のゴミ拾いを行いました。合計で45Lのゴミ袋2つ分を回収しました。",
+              hasReward: true,
+              rewardAmount: 200,
+            },
+            {
+              id: 3,
+              location: "東京都渋谷区代々木公園付近",
+              timeAgo: "3週間前",
+              duration: 75,
+              comment: "公園内のゴミ拾いを行いました。合計で45Lのゴミ袋3つ分を回収しました。",
+              hasReward: false,
+            },
           ].map((item) => (
-            <Card key={item.id}>
-              <CardContent className="p-3">
-                <div className="flex items-start space-x-3">
-                  <div className="w-20 h-20 bg-gray-100 rounded overflow-hidden flex-shrink-0">
-                    <Image
-                      src={`/placeholder.svg?key=oedyx&key=skg28&key=41o2p&key=nsi7d&key=8iotg&key=8mywh&height=80&width=80&text=清掃${item.id}`}
-                      width={80}
-                      height={80}
-                      alt={`清掃写真 ${item.id}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-medium mb-1">東京都渋谷区代々木公園付近</h3>
-                    <div className="flex items-center text-xs text-gray-500 mb-1">
-                      <Trash2 className="w-3 h-3 mr-1" />
-                      <span>{item.id}週間前</span>
-                    </div>
-                    <div className="flex items-center text-xs text-gray-500 mb-1">
-                      <Clock className="w-3 h-3 mr-1" />
-                      <span>清掃時間: {30 + item.id * 15}分</span>
-                    </div>
-                    <p className="text-sm text-gray-600 line-clamp-2">
-                      公園内のゴミ拾いを行いました。合計で45Lのゴミ袋{item.id}つ分を回収しました。
-                    </p>
-                    {item.hasReward ? (
-                      <div className="mt-1 flex items-center justify-between">
-                        <div className="text-xs font-medium text-green-600">
-                          +{item.rewardAmount} pt{item.status === "付与済み" ? " 獲得" : ""}
-                        </div>
-                        {item.status !== "付与済み" && (
-                          <div className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded">{item.status}</div>
-                        )}
-                      </div>
-                    ) : (
-                      <div className="mt-1 text-xs text-gray-500">報酬対象外のミッションです</div>
-                    )}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <CleaningReportCard
+              key={item.id}
+              id={item.id}
+              location={item.location}
+              timeAgo={item.timeAgo}
+              duration={item.duration}
+              comment={item.comment}
+              hasReward={item.hasReward}
+              rewardAmount={item.rewardAmount}
+              status={item.status}
+            />
           ))}
         </TabsContent>
 
         <TabsContent value="missions" className="space-y-4">
           {[1, 2, 3, 4].map((i) => (
-            <Card key={i} onClick={() => setEditingMission(i)} className="cursor-pointer hover:bg-gray-50">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-medium text-lg">東京都渋谷区神宮前{i}丁目</h3>
-                  {i % 2 === 0 && (
-                    <Badge variant="outline" className="bg-gray-50 text-gray-600">
-                      非公開
-                    </Badge>
-                  )}
-                </div>
-
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden flex-shrink-0 relative">
-                    <Image
-                      src={`/placeholder.svg?key=lvlug&key=g4zlo&key=xtnht&key=00r2c&key=v0jb8&height=64&width=64&text=ミッション${i}`}
-                      width={64}
-                      height={64}
-                      alt={`ミッション ${i}`}
-                      className="w-full h-full object-cover"
-                    />
-                    {i % 2 === 0 && (
-                      <div className="absolute top-0 right-0 bg-gray-800/70 p-1 rounded-bl-md">
-                        <Lock className="h-3 w-3 text-white" />
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="flex-1">
-                    <div className="flex items-center text-sm text-gray-500 mb-1">
-                      <BadgeCheck className="w-4 h-4 mr-1 text-teal-500" />
-                      <span>{i}ヶ月前</span>
-                    </div>
-
-                    <div className="flex items-center text-sm text-gray-500 mb-1">
-                      <DollarSign className="w-4 h-4 mr-1" />
-                      <span>総予算: {5000 * i}pt</span>
-                    </div>
-
-                    <div className="flex items-center text-sm text-gray-500">
-                      <Users className="w-4 h-4 mr-1" />
-                      <span>参加者: {i * 3}人</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex justify-between items-center bg-gray-50 p-2 rounded-md">
-                  <div className="text-sm">
-                    <span className="text-gray-500">最大報酬:</span>
-                    <span className="font-medium ml-1">{300 * i}pt</span>
-                  </div>
-                  <div className="text-sm">
-                    <span className="text-gray-500">週予算:</span>
-                    <span className="font-medium ml-1">{1000 * i}pt</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <MissionAchievementCard
+              key={i}
+              id={i}
+              title={`東京都渋谷区神宮前${i}丁目`}
+              timeAgo={`${i}ヶ月前`}
+              budget={5000 * i}
+              maxReward={300 * i}
+              weeklyBudget={1000 * i}
+              participants={i * 3}
+              isPrivate={i % 2 === 0}
+              onClick={() => setEditingMission(i)}
+            />
           ))}
         </TabsContent>
       </Tabs>
@@ -286,7 +187,7 @@ export default function AchievementsPage() {
             <div className="flex items-center gap-3 mb-2">
               <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden">
                 <Image
-                  src={`/placeholder.svg?key=3sc5e&key=zt48p&key=rtv79&key=ygfwx&key=v0jb8&height=64&width=64&text=ミッション${editingMission || 1}`}
+                  src={`/placeholder.svg?key=52xww&key=33426&key=ky4zv&key=3sc5e&key=zt48p&key=rtv79&key=ygfwx&key=v0jb8&height=64&width=64&text=ミッション${editingMission || 1}`}
                   width={64}
                   height={64}
                   alt={`ミッション`}

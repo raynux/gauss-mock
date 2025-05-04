@@ -45,9 +45,6 @@ export default function ProfileEditPage() {
               <AvatarImage src="/placeholder.svg?height=80&width=80" alt="プロフィール画像" />
               <AvatarFallback>ユ</AvatarFallback>
             </Avatar>
-            <button className="absolute bottom-0 right-0 bg-black/50 text-white p-1.5 rounded-full">
-              <Camera className="h-4 w-4" />
-            </button>
           </div>
         </div>
 
