@@ -76,40 +76,40 @@ export default function StartDedicatedMissionPage({ params }: { params: { id: st
   }
 
   return (
-    <div className="dedicated-mission-start pb-6">
-      <div className="relative h-48 bg-gray-200">
-        <Image
-          src="/placeholder.svg?height=192&width=390&text=地図"
-          width={390}
-          height={192}
-          alt="ミッション位置"
-          className="w-full h-full object-cover"
-        />
-
-        {/* 有効範囲の円 */}
-        <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[150px] h-[150px] rounded-full border-2 border-green-500 bg-green-500/20"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <MapPin className="h-8 w-8 text-green-600" />
-          </div>
-        </div>
-
-        <Link
-          href="/dedicated-mission/my-reservations"
-          className="absolute top-4 left-4 bg-black/30 rounded-full p-2 z-10"
-        >
-          <ArrowLeft className="h-6 w-6 text-white" />
+    <div className="dedicated-mission-start pb-6 relative">
+      {/* 固定ヘッダー - 戻るボタンと経過時間 */}
+      <div className="fixed top-0 left-0 right-0 z-10 flex justify-between items-center p-4 bg-white/80 backdrop-blur-sm">
+        <Link href="/dedicated-mission/my-reservations" className="bg-gray-800/70 rounded-full p-2">
+          <ArrowLeft className="h-5 w-5 text-white" />
         </Link>
-
-        {/* 経過時間 */}
-        <div className="absolute top-4 right-4 bg-black/30 rounded-full px-3 py-1 flex items-center z-10">
+        <div className="bg-gray-800/70 rounded-full px-3 py-1 flex items-center">
           <Clock className="h-4 w-4 text-white mr-1" />
           <span className="text-white text-xs font-mono">{formatElapsedTime(elapsedTime)}</span>
         </div>
       </div>
 
-      <ScrollArea className="h-[calc(100vh-192px)]">
+      {/* メインコンテンツ - すべてスクロール可能 */}
+      <ScrollArea className="h-[calc(100vh-16px)] pt-14">
         <div className="p-4">
+          {/* 地図部分 */}
+          <div className="relative h-48 bg-gray-200 rounded-lg overflow-hidden mb-4">
+            <Image
+              src="/placeholder.svg?height=192&width=390&text=地図"
+              width={390}
+              height={192}
+              alt="ミッション位置"
+              className="w-full h-full object-cover"
+            />
+
+            {/* 有効範囲の円 */}
+            <div className="absolute top-0 left-0 w-full h-full">
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[150px] h-[150px] rounded-full border-2 border-green-500 bg-green-500/20"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <MapPin className="h-8 w-8 text-green-600" />
+              </div>
+            </div>
+          </div>
+
           <h1 className="text-xl font-bold mb-2">下北沢商店街喫煙所</h1>
 
           {/* ガイド情報 */}
