@@ -7,7 +7,6 @@ import { ArrowLeft, Camera, Clock, MapPin, ExternalLink, Info, X } from "lucide-
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
@@ -298,30 +297,39 @@ export default function StartDedicatedMissionPage({ params }: { params: { id: st
             <div className="space-y-6">
               <div className="space-y-3">
                 <h3 className="text-sm font-medium">ゴミの量はどうでしたか？</h3>
-                <RadioGroup defaultValue={trashAmount} onValueChange={setTrashAmount}>
-                  <div className="flex justify-between">
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="1" id="trash-1" />
-                      <Label htmlFor="trash-1">少ない</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="2" id="trash-2" />
-                      <Label htmlFor="trash-2">やや少ない</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="3" id="trash-3" />
-                      <Label htmlFor="trash-3">普通</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="4" id="trash-4" />
-                      <Label htmlFor="trash-4">やや多い</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="5" id="trash-5" />
-                      <Label htmlFor="trash-5">多い</Label>
+                <div className="flex flex-col space-y-2">
+                  <div className="grid grid-cols-5 gap-1 mb-1">
+                    <div className="text-center text-xs text-gray-500">少ない</div>
+                    <div className="text-center text-xs text-gray-500"></div>
+                    <div className="text-center text-xs text-gray-500">普通</div>
+                    <div className="text-center text-xs text-gray-500"></div>
+                    <div className="text-center text-xs text-gray-500">多い</div>
+                  </div>
+                  <div className="relative h-12 bg-gray-100 rounded-lg">
+                    <div className="absolute inset-0 flex items-center justify-between px-4">
+                      {[1, 2, 3, 4, 5].map((value) => (
+                        <button
+                          key={value}
+                          className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                            trashAmount === value.toString()
+                              ? "bg-teal-600 text-white"
+                              : "bg-white border border-gray-300"
+                          }`}
+                          onClick={() => setTrashAmount(value.toString())}
+                        >
+                          {value}
+                        </button>
+                      ))}
                     </div>
                   </div>
-                </RadioGroup>
+                  <div className="grid grid-cols-5 gap-1">
+                    <div className="text-center text-xs">とても少ない</div>
+                    <div className="text-center text-xs">やや少ない</div>
+                    <div className="text-center text-xs">普通</div>
+                    <div className="text-center text-xs">やや多い</div>
+                    <div className="text-center text-xs">とても多い</div>
+                  </div>
+                </div>
               </div>
 
               <div className="space-y-3">
