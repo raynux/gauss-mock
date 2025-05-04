@@ -1,6 +1,6 @@
 "use client"
 
-import { Home, Search, PlusSquare, Trophy, User, Calendar } from "lucide-react"
+import { Home, Search, PlusSquare, Trophy, User, Calendar, MapPin, Trash2 } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
@@ -45,26 +45,38 @@ export default function BottomNavigation() {
       <Dialog open={showMenu} onOpenChange={setShowMenu}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>メニュー</DialogTitle>
+            <DialogTitle className="text-xl">メニュー</DialogTitle>
+            <p className="text-sm text-gray-500 mt-1">どのような活動をしますか？</p>
           </DialogHeader>
           <div className="grid grid-cols-2 gap-4 py-4">
             <Link href="/post/area-report" onClick={() => setShowMenu(false)}>
               <Button variant="outline" className="w-full h-auto py-6 flex flex-col">
-                <Search className="h-8 w-8 mb-2" />
+                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-2">
+                  <MapPin className="h-5 w-5 text-gray-700" />
+                </div>
                 <span>エリアレポート</span>
                 <span className="text-xs text-gray-500 mt-1">汚れている場所を報告</span>
               </Button>
             </Link>
             <Link href="/post/cleaning-report" onClick={() => setShowMenu(false)}>
               <Button variant="outline" className="w-full h-auto py-6 flex flex-col">
-                <PlusSquare className="h-8 w-8 mb-2" />
+                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-2">
+                  <Trash2 className="h-5 w-5 text-gray-700" />
+                </div>
                 <span>清掃レポート</span>
                 <span className="text-xs text-gray-500 mt-1">清掃活動を開始</span>
               </Button>
             </Link>
-            <Link href="/dedicated-mission/my-reservations" prefetch={false} onClick={() => setShowMenu(false)}>
+            <Link
+              href="/dedicated-mission/my-reservations"
+              prefetch={false}
+              onClick={() => setShowMenu(false)}
+              className="col-span-2"
+            >
               <Button variant="outline" className="w-full h-auto py-6 flex flex-col">
-                <Calendar className="h-8 w-8 mb-2" />
+                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-2">
+                  <Calendar className="h-5 w-5 text-gray-700" />
+                </div>
                 <span>予約済みミッション</span>
                 <span className="text-xs text-gray-500 mt-1">予約の確認・開始</span>
               </Button>

@@ -3,15 +3,15 @@
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { ArrowLeft, Camera, Clock, MapPin, ExternalLink, Info, X } from "lucide-react"
+import { Camera, Clock, MapPin, ExternalLink, Info, X } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Textarea } from "@/components/ui/textarea"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 
 export default function StartDedicatedMissionPage({ params }: { params: { id: string } }) {
   const router = useRouter()
@@ -29,6 +29,7 @@ export default function StartDedicatedMissionPage({ params }: { params: { id: st
   const [comment, setComment] = useState("")
   const startTimeRef = useRef(Date.now())
   const timerRef = useRef<NodeJS.Timeout | null>(null)
+  const [showAbortDialog, setShowAbortDialog] = useState(false)
 
   // 経過時間の計算
   useEffect(() => {
@@ -59,6 +60,10 @@ export default function StartDedicatedMissionPage({ params }: { params: { id: st
 
   // ミッション中断
   const abortMission = () => {
+    setShowAbortDialog(true)
+  }
+
+  const confirmAbort = () => {
     router.push("/dedicated-mission/my-reservations")
   }
 
@@ -77,19 +82,8 @@ export default function StartDedicatedMissionPage({ params }: { params: { id: st
 
   return (
     <div className="dedicated-mission-start pb-6 relative">
-      {/* 固定ヘッダー - 戻るボタンと経過時間 */}
-      <div className="fixed top-0 left-0 right-0 z-10 flex justify-between items-center p-4 bg-white/80 backdrop-blur-sm">
-        <Link href="/dedicated-mission/my-reservations" className="bg-gray-800/70 rounded-full p-2">
-          <ArrowLeft className="h-5 w-5 text-white" />
-        </Link>
-        <div className="bg-gray-800/70 rounded-full px-3 py-1 flex items-center">
-          <Clock className="h-4 w-4 text-white mr-1" />
-          <span className="text-white text-xs font-mono">{formatElapsedTime(elapsedTime)}</span>
-        </div>
-      </div>
-
       {/* メインコンテンツ - すべてスクロール可能 */}
-      <ScrollArea className="h-[calc(100vh-16px)] pt-14">
+      <ScrollArea className="h-[calc(100vh-16px)]">
         <div className="p-4">
           {/* 地図部分 */}
           <div className="relative h-48 bg-gray-200 rounded-lg overflow-hidden mb-4">
@@ -107,6 +101,12 @@ export default function StartDedicatedMissionPage({ params }: { params: { id: st
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <MapPin className="h-8 w-8 text-green-600" />
               </div>
+            </div>
+
+            {/* 経過時間を地図の右上に表示 */}
+            <div className="absolute top-2 right-2 bg-black/50 rounded-full px-3 py-1 flex items-center z-10">
+              <Clock className="h-4 w-4 text-white mr-1" />
+              <span className="text-white text-xs font-mono">{formatElapsedTime(elapsedTime)}</span>
             </div>
           </div>
 
@@ -385,6 +385,29 @@ export default function StartDedicatedMissionPage({ params }: { params: { id: st
           </button>
         </div>
       </ScrollArea>
+
+      {/* ミッション中断確認ダイアログ */}
+      <Dialog open={showAbortDialog} onOpenChange={setShowAbortDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>ミッションを中断しますか？</DialogTitle>
+          </DialogHeader>
+          <div className="py-4">
+            <p className="text-sm text-gray-600 mb-4">
+              ミッションを中断すると、現在の進捗が失われます。本当に中断しますか？
+            </p>
+            <p className="text-sm text-amber-600">※頻繁な中断は今後のミッション参加に影響する可能性があります。</p>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowAbortDialog(false)} className="w-full sm:w-auto">
+              キャンセル
+            </Button>
+            <Button variant="destructive" onClick={confirmAbort} className="w-full sm:w-auto">
+              中断する
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
