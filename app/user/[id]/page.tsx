@@ -180,7 +180,14 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
               </div>
             </div>
             <div className="flex flex-col items-end">
-              <div className="text-sm text-gray-500 mt-1">総獲得ポイント: {userData.stats.totalPoints}pt</div>
+              <div className="flex items-center bg-gray-50 px-2.5 py-1 rounded-md border border-gray-100">
+                <Award className="w-3.5 h-3.5 text-gray-400 mr-1" />
+                <span className="text-xs text-gray-500">総獲得ポイント:</span>
+                <span className="text-sm font-medium text-gray-700 ml-1">
+                  {userData.stats.totalPoints}
+                  <span className="text-xs ml-0.5">pt</span>
+                </span>
+              </div>
             </div>
           </div>
 
