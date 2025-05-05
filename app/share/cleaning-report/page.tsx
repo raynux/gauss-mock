@@ -25,7 +25,7 @@ export default function CleaningReportSharePage() {
 
   // URLをコピーする関数
   const copyUrl = () => {
-    navigator.clipboard.writeText("https://app.mego.work/share/cleaning-report/12345")
+    navigator.clipboard.writeText("https://app.mego.work/share/clean-report/12345")
     setCopied(true)
     toast({
       title: "URLをコピーしました",
@@ -58,7 +58,7 @@ export default function CleaningReportSharePage() {
   return (
     <div className="p-4 pt-8 h-full flex flex-col">
       <div className="flex items-center mb-6">
-        <Link href="/share/cleaning-report/thumbnail-select" className="mr-2">
+        <Link href="/share/clean-report/thumbnail-select" className="mr-2">
           <ArrowLeft className="h-6 w-6" />
         </Link>
         <h1 className="text-xl font-bold">SNSでシェア</h1>
@@ -67,7 +67,7 @@ export default function CleaningReportSharePage() {
       <div className="flex-1 flex flex-col">
         <div className="relative w-full aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden mb-4">
           <Image
-            src={`/placeholder.svg?key=nbwxr&height=300&width=400&text=清掃${mainImageId}`}
+            src={`/placeholder.svg?key=2vzrr&key=nbwxr&height=300&width=400&text=清掃${mainImageId}`}
             width={400}
             height={300}
             alt="清掃写真"
@@ -111,7 +111,7 @@ export default function CleaningReportSharePage() {
             variant="outline"
             className="w-full justify-between py-6"
             onClick={() =>
-              window.open("https://twitter.com/intent/tweet?url=https://app.mego.work/share/cleaning-report/12345")
+              window.open("https://twitter.com/intent/tweet?url=https://app.mego.work/share/clean-report/12345")
             }
           >
             <div className="flex items-center">
@@ -151,9 +151,7 @@ export default function CleaningReportSharePage() {
             variant="outline"
             className="w-full justify-between py-6"
             onClick={() =>
-              window.open(
-                "https://www.facebook.com/sharer/sharer.php?u=https://app.mego.work/share/cleaning-report/12345",
-              )
+              window.open("https://www.facebook.com/sharer/sharer.php?u=https://app.mego.work/share/clean-report/12345")
             }
           >
             <div className="flex items-center">
@@ -279,7 +277,7 @@ export default function CleaningReportSharePage() {
               </div>
             </div>
             <DialogTitle className="text-center text-2xl">
-              ���ランティア
+              ボランティア
               <br />
               証明書の発行
             </DialogTitle>

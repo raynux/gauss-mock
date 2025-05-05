@@ -61,7 +61,7 @@ export default function BottomNavigation() {
                 <span className="text-xs text-gray-500 mt-1">付近の汚れ具合を報告</span>
               </Button>
             </Link>
-            <Link href="/post/cleaning-report" onClick={() => setShowMenu(false)}>
+            <Link href="/post/clean-report" onClick={() => setShowMenu(false)}>
               <Button
                 variant="outline"
                 className="w-full h-auto py-5 flex flex-col border-2 hover:border-green-400 hover:bg-green-50 transition-all"

@@ -27,7 +27,7 @@ export default function CleaningReportThumbnailSelectPage() {
   // 次へボタンのクリック処理
   const handleNext = () => {
     if (selectedImages.length > 0) {
-      router.push(`/share/cleaning-report?images=${selectedImages.join(",")}`)
+      router.push(`/share/clean-report?images=${selectedImages.join(",")}`)
     }
   }
 
@@ -42,7 +42,7 @@ export default function CleaningReportThumbnailSelectPage() {
   return (
     <div className="p-4 pt-8 h-full flex flex-col">
       <div className="flex items-center mb-4">
-        <Link href="/post/cleaning-report/thank-you" className="mr-2">
+        <Link href="/post/clean-report/thank-you" className="mr-2">
           <ArrowLeft className="h-6 w-6" />
         </Link>
         <h1 className="text-xl font-bold">サムネイルの作成</h1>

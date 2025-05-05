@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { MapPin, Upload, ArrowLeft, Info, Plus, Camera, Clock, Ruler } from "lucide-react"
+import { Upload, ArrowLeft, Info, Plus, Camera, Clock, Ruler } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
 import { useRouter } from "next/navigation"
 import { Stepper, Step } from "@/components/stepper"
@@ -11,10 +11,11 @@ import { useToast } from "@/hooks/use-toast"
 import Link from "next/link"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 
-export default function CleaningReportPage() {
+export default function CleanReportPage() {
   const router = useRouter()
   const { toast } = useToast()
   const [step, setStep] = useState(0)
+  const [startPhoto, setStartPhoto] = useState<string | null>(null)
   const [cleaningPhotos, setCleaningPhotos] = useState<string[]>([])
   const [trashPhotos, setTrashPhotos] = useState<{
     bag1Inside: string | null
@@ -27,19 +28,45 @@ export default function CleaningReportPage() {
     bag2Inside: null,
     bag2Outside: null,
   })
+  const [selfiePhoto, setSelfiePhoto] = useState<string | null>(null)
   const [cleaningTime, setCleaningTime] = useState("00:00:00")
   const [distance, setDistance] = useState("0m")
+  const [comment, setComment] = useState("")
 
   // 投稿完了時の処理
-  const handleSubmit = () => {
-    // 実際のアプリでは、ここでデータを送信する処理を実装
-    router.push("/post/cleaning-report/thank-you")
+  // const handleSubmit = () => {
+  //   if (!selfiePhoto) {
+  //     toast({
+  //       title: "エラー",
+  //       description: "自撮り写真は必須です",
+  //       variant: "destructive",
+  //     })
+  //     return
+  //   }
+
+  //   // 遷移前にコンソールログを出力（デバッグ用）
+  //   console.log("遷移を開始します: /post/clean-report/thank-you")
+
+  //   // router.push の代わりに window.location を使用
+  //   window.location.href = "/post/clean-report/thank-you"
+  // }
+
+  // スタート地点の写真を追加
+  const addStartPhoto = () => {
+    const newPhoto = `/placeholder.svg?height=200&width=200&text=スタート地点`
+    setStartPhoto(newPhoto)
   }
 
   // 清掃中の写真を追加
   const addCleaningPhoto = () => {
     const newPhoto = `/placeholder.svg?height=200&width=200&text=清掃写真${cleaningPhotos.length + 1}`
     setCleaningPhotos([...cleaningPhotos, newPhoto])
+  }
+
+  // 自撮り写真を追加
+  const addSelfiePhoto = () => {
+    const newPhoto = `/placeholder.svg?height=200&width=200&text=自撮り`
+    setSelfiePhoto(newPhoto)
   }
 
   // ゴミ写真を追加
@@ -61,7 +88,7 @@ export default function CleaningReportPage() {
   const getStepDescription = (stepIndex: number) => {
     switch (stepIndex) {
       case 0:
-        return "清掃を始める場所を記録します"
+        return "清掃を始める場所の写真を撮影します"
       case 1:
         return "清掃活動中の写真を撮影します"
       case 2:
@@ -75,7 +102,9 @@ export default function CleaningReportPage() {
 
   // 次のステップに進めるかチェック
   const canProceedToNextStep = () => {
-    if (step === 2) {
+    if (step === 0) {
+      return !!startPhoto
+    } else if (step === 2) {
       // ゴミ袋1の中身と外観が両方あるかチェック
       return trashPhotos.bag1Inside && trashPhotos.bag1Outside
     }
@@ -121,13 +150,28 @@ export default function CleaningReportPage() {
           <form className="space-y-6">
             {step === 0 && (
               <div className="space-y-4">
-                <div className="aspect-video bg-gray-100 rounded-md flex flex-col items-center justify-center border border-dashed border-gray-300">
-                  <MapPin className="h-8 w-8 text-gray-400 mb-2" />
-                  <span className="text-sm text-gray-500">スタート地点を記録</span>
+                <div className="aspect-video bg-gray-100 rounded-md overflow-hidden">
+                  {startPhoto ? (
+                    <img
+                      src={startPhoto || "/placeholder.svg"}
+                      alt="スタート地点"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={addStartPhoto}
+                      className="w-full h-full flex flex-col items-center justify-center border border-dashed border-gray-300"
+                    >
+                      <Camera className="h-8 w-8 text-gray-400 mb-2" />
+                      <span className="text-sm text-gray-500">スタート地点の写真を撮影</span>
+                    </button>
+                  )}
                 </div>
-                <Button onClick={() => setStep(1)} className="w-full">
+                <Button onClick={() => setStep(1)} disabled={!canProceedToNextStep()} className="w-full">
                   清掃活動開始
                 </Button>
+                {!canProceedToNextStep() && <p className="text-xs text-amber-600">※スタート地点の写真が必要です</p>}
               </div>
             )}
 
@@ -185,7 +229,7 @@ export default function CleaningReportPage() {
                     {trashPhotos.bag1Inside ? (
                       <img
                         src={trashPhotos.bag1Inside || "/placeholder.svg"}
-                        alt="ゴミ袋1���身"
+                        alt="ゴミ袋1中身"
                         className="w-full h-full object-cover"
                       />
                     ) : (
@@ -291,14 +335,49 @@ export default function CleaningReportPage() {
 
             {step === 3 && (
               <div className="space-y-4">
-                <div className="aspect-video bg-gray-100 rounded-md flex flex-col items-center justify-center border border-dashed border-gray-300">
-                  <Upload className="h-8 w-8 text-gray-400 mb-2" />
-                  <span className="text-sm text-gray-500">自撮り（任意）</span>
+                <div className="aspect-video bg-gray-100 rounded-md overflow-hidden">
+                  {selfiePhoto ? (
+                    <img src={selfiePhoto || "/placeholder.svg"} alt="自撮り" className="w-full h-full object-cover" />
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={addSelfiePhoto}
+                      className="w-full h-full flex flex-col items-center justify-center border border-dashed border-gray-300"
+                    >
+                      <Upload className="h-8 w-8 text-gray-400 mb-2" />
+                      <span className="text-sm text-gray-500">自撮り（必須）</span>
+                    </button>
+                  )}
                 </div>
-                <Textarea placeholder="コメントを入力（任意）" className="resize-none" rows={3} />
-                <Button onClick={handleSubmit} className="w-full">
+                <Textarea
+                  placeholder="コメントを入力（任意）"
+                  className="resize-none"
+                  rows={3}
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                />
+                <Button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    console.log("送信ボタンがクリックされました")
+                    if (selfiePhoto) {
+                      console.log("thank you ページに遷移します")
+                      window.location.href = "/post/clean-report/thank-you"
+                    } else {
+                      toast({
+                        title: "エラー",
+                        description: "自撮り写真は必須です",
+                        variant: "destructive",
+                      })
+                    }
+                  }}
+                  disabled={!selfiePhoto}
+                  className="w-full"
+                >
                   レポートを送信
                 </Button>
+                {!selfiePhoto && <p className="text-xs text-amber-600">※自撮り写真は必須です</p>}
               </div>
             )}
           </form>
