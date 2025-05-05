@@ -98,7 +98,7 @@ export default function ExplorePage() {
                 <DrawerHeader className="text-left p-4 pb-0">
                   <DrawerTitle>この場所のミッション</DrawerTitle>
                 </DrawerHeader>
-                <div className="p-4">
+                <div className="p-4 overflow-auto max-h-[calc(85vh-60px)]">
                   <div className="space-y-4">
                     <div>
                       <h3 className="font-medium text-lg mb-1">東京都渋谷区神宮前</h3>
@@ -315,11 +315,11 @@ export default function ExplorePage() {
 
           {selectedMission && (
             <Drawer open={!!selectedMission} onOpenChange={() => setSelectedMission(null)}>
-              <DrawerContent className="h-[90vh] w-full max-w-[390px] mx-auto">
+              <DrawerContent className="max-h-[90vh] w-full max-w-[390px] mx-auto">
                 <DrawerHeader className="text-left p-4 pb-0">
                   <DrawerTitle>エリア詳細</DrawerTitle>
                 </DrawerHeader>
-                <div className="p-4">
+                <div className="p-4 overflow-auto max-h-[calc(90vh-60px)]">
                   <div className="space-y-4">
                     <div className="grid grid-cols-2 gap-3">
                       <div className="bg-gray-100 p-3 rounded-lg text-center">
@@ -336,10 +336,14 @@ export default function ExplorePage() {
                       <h3 className="text-sm font-medium mb-2">関係するユーザー</h3>
                       <div className="flex -space-x-2">
                         {[1, 2, 3, 4, 5].map((i) => (
-                          <Avatar key={i} className="border-2 border-white">
-                            <AvatarImage src={`/placeholder-u.png?key=p9xyd&key=7s9z1&height=32&width=32&text=U${i}`} />
-                            <AvatarFallback>U{i}</AvatarFallback>
-                          </Avatar>
+                          <Link href={`/user/user-${i}`} key={i}>
+                            <Avatar className="border-2 border-white cursor-pointer hover:opacity-80 transition-opacity">
+                              <AvatarImage
+                                src={`/placeholder-u.png?key=p9xyd&key=7s9z1&height=32&width=32&text=U${i}`}
+                              />
+                              <AvatarFallback>U{i}</AvatarFallback>
+                            </Avatar>
+                          </Link>
                         ))}
                         <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs font-medium border-2 border-white">
                           +3
@@ -349,12 +353,12 @@ export default function ExplorePage() {
 
                     <div>
                       <h3 className="text-sm font-medium mb-2">写真</h3>
-                      <div className="h-64 overflow-y-auto">
+                      <div>
                         <div className="grid grid-cols-2 gap-2">
                           {Array.from({ length: 12 }).map((_, i) => (
                             <div key={i} className="aspect-square bg-gray-100 rounded overflow-hidden">
                               <Image
-                                src={`/placeholder.svg?key=xgtl8&key=w4pep&key=pbuao&key=dif3q&key=o1qiu&key=a6513&key=zeqwf&key=dj7qv&height=120&width=120&text=写真${
+                                src={`/placeholder.svg?key=3wal0&key=jw835&key=bz9cy&key=qllzr&key=xgtl8&key=w4pep&key=pbuao&key=dif3q&key=o1qiu&key=a6513&key=zeqwf&key=dj7qv&height=120&width=120&text=写真${
                                   i + 1
                                 }`}
                                 width={120}
