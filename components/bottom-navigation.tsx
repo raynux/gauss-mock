@@ -70,7 +70,7 @@ export default function BottomNavigation() {
                   <Trash2 className="h-6 w-6 text-green-600" />
                 </div>
                 <span className="font-medium">清掃レポート</span>
-                <span className="text-xs text-gray-500 mt-1">清掃活動を開始</span>
+                <span className="text-xs text-gray-500 mt-1">清掃活動・ミッションを開始</span>
               </Button>
             </Link>
             <Link href="/dedicated-mission/my-reservations" prefetch={false} onClick={() => setShowMenu(false)}>

@@ -1,6 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Trophy } from "lucide-react"
-import Image from "next/image"
 
 export default function RankingPage() {
   return (
@@ -37,23 +36,6 @@ export default function RankingPage() {
           </div>
         </CardContent>
       </Card>
-
-      <div className="mt-8 p-4 bg-gray-100 rounded-lg">
-        <h2 className="font-medium mb-2">ランキング機能について</h2>
-        <p className="text-sm text-gray-600 mb-4">
-          個人やグループの清掃活動の成果を競い合えるランキング機能を開発中です。
-          ポイントやバッジ獲得数に基づいたランキングで、モチベーション向上につながります。
-        </p>
-        <div className="aspect-video bg-white rounded-md flex items-center justify-center">
-          <Image
-            src="/placeholder.svg?height=180&width=320"
-            width={320}
-            height={180}
-            alt="ランキングイメージ"
-            className="object-contain"
-          />
-        </div>
-      </div>
     </div>
   )
 }

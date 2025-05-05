@@ -24,7 +24,8 @@ export default function StartDedicatedMissionPage({ params }: { params: { id: st
   const [isInRange, setIsInRange] = useState(true)
   const [elapsedTime, setElapsedTime] = useState(0)
   const [showCompletionDialog, setShowCompletionDialog] = useState(false)
-  const [trashAmount, setTrashAmount] = useState("3")
+  const [cigaretteAmount, setCigaretteAmount] = useState("3")
+  const [litterAmount, setLitterAmount] = useState("3")
   const [missingItems, setMissingItems] = useState<string[]>([])
   const [comment, setComment] = useState("")
   const startTimeRef = useRef(Date.now())
@@ -296,7 +297,7 @@ export default function StartDedicatedMissionPage({ params }: { params: { id: st
 
             <div className="space-y-6">
               <div className="space-y-3">
-                <h3 className="text-sm font-medium">ゴミの量はどうでしたか？</h3>
+                <h3 className="text-sm font-medium">吸殻の量はどうでしたか？</h3>
                 <div className="flex flex-col space-y-2">
                   <div className="grid grid-cols-5 gap-1 mb-1">
                     <div className="text-center text-xs text-gray-500">少ない</div>
@@ -311,23 +312,46 @@ export default function StartDedicatedMissionPage({ params }: { params: { id: st
                         <button
                           key={value}
                           className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                            trashAmount === value.toString()
+                            cigaretteAmount === value.toString()
                               ? "bg-teal-600 text-white"
                               : "bg-white border border-gray-300"
                           }`}
-                          onClick={() => setTrashAmount(value.toString())}
+                          onClick={() => setCigaretteAmount(value.toString())}
                         >
                           {value}
                         </button>
                       ))}
                     </div>
                   </div>
-                  <div className="grid grid-cols-5 gap-1">
-                    <div className="text-center text-xs">とても少ない</div>
-                    <div className="text-center text-xs">やや少ない</div>
-                    <div className="text-center text-xs">普通</div>
-                    <div className="text-center text-xs">やや多い</div>
-                    <div className="text-center text-xs">とても多い</div>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <h3 className="text-sm font-medium">放置ゴミの量はどうでしたか？</h3>
+                <div className="flex flex-col space-y-2">
+                  <div className="grid grid-cols-5 gap-1 mb-1">
+                    <div className="text-center text-xs text-gray-500">少ない</div>
+                    <div className="text-center text-xs text-gray-500"></div>
+                    <div className="text-center text-xs text-gray-500">普通</div>
+                    <div className="text-center text-xs text-gray-500"></div>
+                    <div className="text-center text-xs text-gray-500">多い</div>
+                  </div>
+                  <div className="relative h-12 bg-gray-100 rounded-lg">
+                    <div className="absolute inset-0 flex items-center justify-between px-4">
+                      {[1, 2, 3, 4, 5].map((value) => (
+                        <button
+                          key={value}
+                          className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                            litterAmount === value.toString()
+                              ? "bg-teal-600 text-white"
+                              : "bg-white border border-gray-300"
+                          }`}
+                          onClick={() => setLitterAmount(value.toString())}
+                        >
+                          {value}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

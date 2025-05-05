@@ -185,7 +185,7 @@ export default function CleaningReportPage() {
                     {trashPhotos.bag1Inside ? (
                       <img
                         src={trashPhotos.bag1Inside || "/placeholder.svg"}
-                        alt="ゴミ袋1中身"
+                        alt="ゴミ袋1���身"
                         className="w-full h-full object-cover"
                       />
                     ) : (

@@ -279,7 +279,7 @@ export default function CleaningReportSharePage() {
               </div>
             </div>
             <DialogTitle className="text-center text-2xl">
-              ボランティア
+              ���ランティア
               <br />
               証明書の発行
             </DialogTitle>
