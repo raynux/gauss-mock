@@ -1,6 +1,6 @@
 "use client"
 
-import { Home, Search, PlusSquare, Trophy, User, Calendar, MapPin, Trash2 } from "lucide-react"
+import { Home, Search, PlusSquare, Trophy, User, Calendar, MapPin, Trash2, BadgeCheck } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
@@ -43,42 +43,58 @@ export default function BottomNavigation() {
       </div>
 
       <Dialog open={showMenu} onOpenChange={setShowMenu}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="text-xl">メニュー</DialogTitle>
+        <DialogContent className="sm:max-w-md p-0 gap-0 overflow-hidden">
+          <DialogHeader className="px-6 pt-6 pb-2">
+            <DialogTitle className="text-xl font-bold">アクション</DialogTitle>
             <p className="text-sm text-gray-500 mt-1">どのような活動をしますか？</p>
           </DialogHeader>
-          <div className="grid grid-cols-2 gap-4 py-4">
+          <div className="grid grid-cols-2 gap-3 p-6">
             <Link href="/post/area-report" onClick={() => setShowMenu(false)}>
-              <Button variant="outline" className="w-full h-auto py-6 flex flex-col">
-                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-2">
-                  <MapPin className="h-5 w-5 text-gray-700" />
+              <Button
+                variant="outline"
+                className="w-full h-auto py-5 flex flex-col border-2 hover:border-blue-400 hover:bg-blue-50 transition-all"
+              >
+                <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-3">
+                  <MapPin className="h-6 w-6 text-blue-600" />
                 </div>
-                <span>エリアレポート</span>
+                <span className="font-medium">エリアレポート</span>
                 <span className="text-xs text-gray-500 mt-1">付近の汚れ具合を報告</span>
               </Button>
             </Link>
             <Link href="/post/cleaning-report" onClick={() => setShowMenu(false)}>
-              <Button variant="outline" className="w-full h-auto py-6 flex flex-col">
-                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-2">
-                  <Trash2 className="h-5 w-5 text-gray-700" />
+              <Button
+                variant="outline"
+                className="w-full h-auto py-5 flex flex-col border-2 hover:border-green-400 hover:bg-green-50 transition-all"
+              >
+                <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-3">
+                  <Trash2 className="h-6 w-6 text-green-600" />
                 </div>
-                <span>清掃レポート</span>
+                <span className="font-medium">清掃レポート</span>
                 <span className="text-xs text-gray-500 mt-1">清掃活動を開始</span>
               </Button>
             </Link>
-            <Link
-              href="/dedicated-mission/my-reservations"
-              prefetch={false}
-              onClick={() => setShowMenu(false)}
-              className="col-span-2"
-            >
-              <Button variant="outline" className="w-full h-auto py-6 flex flex-col">
-                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-2">
-                  <Calendar className="h-5 w-5 text-gray-700" />
+            <Link href="/dedicated-mission/my-reservations" prefetch={false} onClick={() => setShowMenu(false)}>
+              <Button
+                variant="outline"
+                className="w-full h-auto py-5 flex flex-col border-2 hover:border-amber-400 hover:bg-amber-50 transition-all"
+              >
+                <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mb-3">
+                  <Calendar className="h-6 w-6 text-amber-600" />
                 </div>
-                <span>専用ミッション</span>
+                <span className="font-medium">専用ミッション</span>
                 <span className="text-xs text-gray-500 mt-1">予約の確認・開始</span>
+              </Button>
+            </Link>
+            <Link href="/mission/create" prefetch={false} onClick={() => setShowMenu(false)}>
+              <Button
+                variant="outline"
+                className="w-full h-auto py-5 flex flex-col border-2 hover:border-purple-400 hover:bg-purple-50 transition-all"
+              >
+                <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mb-3">
+                  <BadgeCheck className="h-6 w-6 text-purple-600" />
+                </div>
+                <span className="font-medium">ミッション作成</span>
+                <span className="text-xs text-gray-500 mt-1">新しいミッションを作成</span>
               </Button>
             </Link>
           </div>

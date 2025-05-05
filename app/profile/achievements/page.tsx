@@ -187,7 +187,7 @@ export default function AchievementsPage() {
             <div className="flex items-center gap-3 mb-2">
               <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden">
                 <Image
-                  src={`/placeholder.svg?key=52xww&key=33426&key=ky4zv&key=3sc5e&key=zt48p&key=rtv79&key=ygfwx&key=v0jb8&height=64&width=64&text=ミッション${editingMission || 1}`}
+                  src={`/placeholder.svg?key=m1uwx&key=52xww&key=33426&key=ky4zv&key=3sc5e&key=zt48p&key=rtv79&key=ygfwx&key=v0jb8&height=64&width=64&text=ミッション${editingMission || 1}`}
                   width={64}
                   height={64}
                   alt={`ミッション`}
@@ -241,6 +241,20 @@ export default function AchievementsPage() {
                 id="comment"
                 rows={3}
                 defaultValue="渋谷川周辺の清掃活動です。最近の雨で川沿いにゴミが増えています。地域の環境を守るため、みんなで協力して清掃活動を行いましょう。"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="privateMessage" className="text-sm font-medium">
+                清掃した人へのメッセージ（非公開）
+              </Label>
+              <div className="text-xs text-gray-500 mb-1">
+                このメッセージは清掃を行った人だけに表示され、他のユーザーには見えません。
+              </div>
+              <Textarea
+                id="privateMessage"
+                rows={3}
+                defaultValue="お疲れ様です。ゴミ袋は指定の場所に捨ててください。"
               />
             </div>
 
