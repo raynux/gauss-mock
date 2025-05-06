@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ArrowLeft, Plus, Edit } from "lucide-react"
+import { ArrowLeft, Plus, Edit, EyeOff } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -112,13 +112,19 @@ export default function MyMissionsPage() {
 
       <div className="space-y-4">
         {missions.map((mission) => (
-          <Card key={mission.id} className="overflow-hidden">
+          <Card key={mission.id} className={`overflow-hidden ${!mission.isActive ? "bg-gray-50 border-gray-200" : ""}`}>
             <CardContent className="p-4">
               <div className="flex justify-between items-start mb-3">
                 <div>
                   <div className="flex items-center">
                     <h3 className="font-medium text-lg">{mission.title}</h3>
                     {mission.hasNewRewards && <Badge className="ml-2 bg-teal-500 text-white">新規分配案</Badge>}
+                    {!mission.isActive && (
+                      <div className="flex items-center ml-2 text-gray-500">
+                        <EyeOff className="h-4 w-4 mr-1" />
+                        <span className="text-xs">非表示</span>
+                      </div>
+                    )}
                   </div>
                   <p className="text-sm text-gray-500">作成: {mission.createdAt}</p>
                 </div>
@@ -130,33 +136,28 @@ export default function MyMissionsPage() {
               </div>
 
               <div className="grid grid-cols-2 gap-3 mb-3">
-                <div className="bg-gray-50 p-2 rounded-md">
+                <div className="bg-gray-100 p-2 rounded-md">
                   <p className="text-xs text-gray-500">予算</p>
                   <p className="font-medium">{mission.budget.toLocaleString()} pt</p>
                 </div>
-                <div className="bg-gray-50 p-2 rounded-md">
+                <div className="bg-gray-100 p-2 rounded-md">
                   <p className="text-xs text-gray-500">週間上限</p>
                   <p className="font-medium">{mission.weeklyBudget.toLocaleString()} pt</p>
                 </div>
-                <div className="bg-gray-50 p-2 rounded-md">
+                <div className="bg-gray-100 p-2 rounded-md">
                   <p className="text-xs text-gray-500">一人当たり上限</p>
                   <p className="font-medium">{mission.maxReward.toLocaleString()} pt</p>
                 </div>
-                <div className="bg-gray-50 p-2 rounded-md">
+                <div className="bg-gray-100 p-2 rounded-md">
                   <p className="text-xs text-gray-500">参加者数</p>
                   <p className="font-medium">{mission.participants}人</p>
                 </div>
               </div>
 
-              <div className="flex justify-between">
-                {!mission.isActive && (
-                  <Badge variant="outline" className="text-gray-500">
-                    非公開
-                  </Badge>
-                )}
+              <div>
                 <Link href={`/profile/my-missions/rewards?mission=${mission.id}`}>
                   <Button variant="outline" size="sm">
-                    報酬履歴を見る
+                    報酬分配履歴
                   </Button>
                 </Link>
               </div>
@@ -194,7 +195,7 @@ export default function MyMissionsPage() {
             <div className="flex items-center gap-3 mb-2">
               <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden">
                 <Image
-                  src={`/placeholder.svg?key=rzb6p&key=ue3hj&key=mz8zr&height=64&width=64&text=ミッション${editingMission || 1}`}
+                  src={`/placeholder.svg?key=77fo3&key=f4uou&height=64&width=64&text=Mission${editingMission || 1}`}
                   width={64}
                   height={64}
                   alt={`ミッション`}

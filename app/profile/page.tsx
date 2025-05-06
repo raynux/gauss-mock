@@ -170,7 +170,7 @@ export default function ProfilePage() {
         <Link href="/profile/achievements">
           <Button variant="outline" className="w-full justify-start py-6">
             <BadgeCheck className="mr-2 h-5 w-5" />
-            実績
+            投稿実績
           </Button>
         </Link>
         <Link href="/profile/my-missions">
