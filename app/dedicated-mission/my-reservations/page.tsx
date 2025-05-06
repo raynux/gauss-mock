@@ -76,7 +76,11 @@ export default function MyReservationsPage() {
             <Card key={reservation.id} className="overflow-hidden">
               <CardContent className="p-4">
                 <div className="flex justify-between items-start mb-3">
-                  <h3 className="font-medium text-lg">{reservation.title}</h3>
+                  <Link href={`/dedicated-mission/${reservation.id}`}>
+                    <h3 className="font-medium text-lg hover:text-teal-600 transition-colors cursor-pointer">
+                      {reservation.title}
+                    </h3>
+                  </Link>
                   <Badge variant="outline" className="bg-gray-50 text-gray-600 border-gray-200">
                     専用ミッション
                   </Badge>
@@ -169,7 +173,11 @@ export default function MyReservationsPage() {
             <Card key={reservation.id} className="overflow-hidden">
               <CardContent className="p-4">
                 <div className="flex justify-between items-start mb-3">
-                  <h3 className="font-medium text-lg">{reservation.title}</h3>
+                  <Link href={`/dedicated-mission/${reservation.id}`}>
+                    <h3 className="font-medium text-lg hover:text-teal-600 transition-colors cursor-pointer">
+                      {reservation.title}
+                    </h3>
+                  </Link>
                   <Badge
                     variant="outline"
                     className={
