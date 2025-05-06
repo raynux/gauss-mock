@@ -6,6 +6,7 @@ import { ArrowLeft, Check } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import { Card, CardContent } from "@/components/ui/card"
 
 export default function CleaningReportThumbnailSelectPage() {
   const router = useRouter()
@@ -27,82 +28,81 @@ export default function CleaningReportThumbnailSelectPage() {
   // 次へボタンのクリック処理
   const handleNext = () => {
     if (selectedImages.length > 0) {
-      router.push(`/share/clean-report?images=${selectedImages.join(",")}`)
+      router.push(`/share/cleaning-report?images=${selectedImages.join(",")}`)
     }
   }
 
   // 画像データ
   const images = [
-    { id: 1, label: "清掃前", time: "17:08", src: "/placeholder.svg?height=200&width=300&text=清掃前" },
-    { id: 2, label: "清掃後", time: "17:08", src: "/placeholder.svg?height=200&width=300&text=清掃後" },
-    { id: 3, label: "ゴミ袋1中身", time: "17:08", src: "/placeholder.svg?height=200&width=300&text=ゴミ袋1中身" },
-    { id: 4, label: "ゴミ袋1外観", time: "17:08", src: "/placeholder.svg?height=200&width=300&text=ゴミ袋1外観" },
+    { id: 1, label: "清掃前", time: "17:08", src: "/placeholder.svg?height=300&width=200&text=清掃前" },
+    { id: 2, label: "清掃後", time: "17:08", src: "/placeholder.svg?height=300&width=200&text=清掃後" },
+    { id: 3, label: "ゴミ袋1中身", time: "17:08", src: "/placeholder.svg?height=300&width=200&text=ゴミ袋1中身" },
+    { id: 4, label: "ゴミ袋1外観", time: "17:08", src: "/placeholder.svg?height=300&width=200&text=ゴミ袋1外観" },
   ]
 
   return (
-    <div className="p-4 pt-8 h-full flex flex-col">
-      <div className="flex items-center mb-4">
-        <Link href="/post/clean-report/thank-you" className="mr-2">
-          <ArrowLeft className="h-6 w-6" />
+    <div className="container max-w-md mx-auto px-4 py-6 h-full flex flex-col">
+      <div className="flex items-center mb-6">
+        <Link href="/post/clean-report/thank-you" className="mr-3">
+          <Button variant="ghost" size="icon" className="h-9 w-9">
+            <ArrowLeft className="h-5 w-5" />
+          </Button>
         </Link>
         <h1 className="text-xl font-bold">サムネイルの作成</h1>
       </div>
 
-      <p className="text-sm text-gray-600 mb-4">使用する画像を選択してください(最大4枚)</p>
+      <Card className="mb-6 border-none shadow-sm">
+        <CardContent className="p-4">
+          <p className="text-sm text-gray-600">使用する画像を選択してください（最大4枚）</p>
+          <div className="mt-2 text-xs text-gray-500">選択中: {selectedImages.length}枚</div>
+        </CardContent>
+      </Card>
 
       <div className="flex-1 overflow-auto">
-        <div className="relative">
-          {/* タイムライン */}
-          <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-teal-200"></div>
-
-          {/* 画像リスト */}
-          <div className="space-y-6 pl-12">
-            {images.map((image) => (
-              <div key={image.id} className="relative">
-                {/* タイムライン上の時間表示 */}
-                <div className="absolute left-[-48px] top-1/2 -translate-y-1/2 flex flex-col items-center">
-                  <div
-                    className={`w-4 h-4 rounded-full ${
-                      selectedImages.includes(image.id) ? "bg-teal-400" : "bg-gray-200"
-                    }`}
-                  ></div>
-                  <span className="text-xs text-gray-500 mt-1">{image.time}</span>
+        <div className="grid grid-cols-2 gap-3">
+          {images.map((image) => (
+            <Card
+              key={image.id}
+              className={`overflow-hidden transition-all ${
+                selectedImages.includes(image.id) ? "border-2 border-teal-500 shadow-md" : "border border-gray-200"
+              }`}
+              onClick={() => toggleImageSelection(image.id)}
+            >
+              <CardContent className="p-0 relative">
+                <div className="absolute top-1 left-1 z-10 bg-black/50 text-white text-[10px] px-1.5 py-0.5 rounded-md">
+                  {image.label}
                 </div>
 
-                {/* 画像カード */}
-                <div
-                  className={`relative rounded-lg overflow-hidden border-2 ${
-                    selectedImages.includes(image.id) ? "border-teal-400" : "border-transparent"
-                  }`}
-                  onClick={() => toggleImageSelection(image.id)}
-                >
-                  <div className="absolute top-2 left-2 z-10 bg-black/50 text-white text-xs px-2 py-1 rounded">
-                    {image.label}
+                <div className="absolute top-1 right-1 z-10 bg-black/50 text-white text-[10px] px-1.5 py-0.5 rounded-md">
+                  {image.time}
+                </div>
+
+                {selectedImages.includes(image.id) && (
+                  <div className="absolute bottom-1 right-1 z-10 bg-teal-500 rounded-full p-1 shadow">
+                    <Check className="h-3 w-3 text-white" />
                   </div>
+                )}
 
-                  {selectedImages.includes(image.id) && (
-                    <div className="absolute bottom-2 right-2 z-10 bg-teal-400 rounded-full p-1">
-                      <Check className="h-4 w-4 text-white" />
-                    </div>
-                  )}
-
-                  <Image
-                    src={image.src || "/placeholder.svg"}
-                    width={300}
-                    height={200}
-                    alt={image.label}
-                    className="w-full aspect-video object-cover"
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
+                <Image
+                  src={image.src || "/placeholder.svg"}
+                  width={150}
+                  height={200}
+                  alt={image.label}
+                  className="w-full aspect-[3/4] object-cover"
+                />
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
 
-      <div className="mt-4">
-        <Button onClick={handleNext} disabled={selectedImages.length === 0} className="w-full">
-          次へ
+      <div className="mt-6 sticky bottom-4">
+        <Button
+          onClick={handleNext}
+          disabled={selectedImages.length === 0}
+          className="w-full bg-teal-500 hover:bg-teal-600 text-white"
+        >
+          次へ ({selectedImages.length}/4)
         </Button>
       </div>
     </div>

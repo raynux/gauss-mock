@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Trash2, Clock } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 
 interface CleaningReportCardProps {
   id: number
@@ -29,7 +30,7 @@ export default function CleaningReportCard({
         <div className="flex items-start space-x-4">
           <div className="w-24 h-24 bg-gray-100 rounded-md overflow-hidden flex-shrink-0">
             <Image
-              src={`/placeholder.svg?key=i0kan&key=4dwhm&key=oedyx&key=skg28&key=41o2p&key=nsi7d&key=8iotg&key=8mywh&height=96&width=96&text=清掃${id}`}
+              src={`/placeholder.svg?key=26lkj&key=i0kan&key=4dwhm&key=oedyx&key=skg28&key=41o2p&key=nsi7d&key=8iotg&key=8mywh&height=96&width=96&text=清掃${id}`}
               width={96}
               height={96}
               alt={`清掃写真 ${id}`}
@@ -37,7 +38,11 @@ export default function CleaningReportCard({
             />
           </div>
           <div className="flex-1">
-            <h3 className="font-medium mb-2 text-base">{location}</h3>
+            <Link href={`/share/cleaning-report/${id}`}>
+              <h3 className="font-medium mb-2 text-base hover:text-teal-600 transition-colors cursor-pointer">
+                {location}
+              </h3>
+            </Link>
             <div className="flex items-center text-xs text-gray-500 mb-2">
               <Trash2 className="w-3 h-3 mr-1.5" />
               <span>{timeAgo}</span>

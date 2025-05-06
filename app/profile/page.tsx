@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { BadgeCheck, CreditCard, Edit, LogOut, Plus, Users, Calendar } from "lucide-react"
+import { BadgeCheck, CreditCard, Edit, LogOut, Plus, Users, Calendar, Award } from "lucide-react"
 import Link from "next/link"
 
 export default function ProfilePage() {
@@ -70,12 +70,49 @@ export default function ProfilePage() {
         </CardContent>
       </Card>
 
+      <Card className="mb-6 bg-gradient-to-r from-teal-50 to-emerald-50 border-teal-200">
+        <CardContent className="p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <div className="bg-teal-100 rounded-full p-2 mr-3 flex items-center justify-center w-10 h-10">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-teal-600"
+                >
+                  <circle cx="12" cy="8" r="6" />
+                  <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="font-medium">報酬分配</h3>
+                <p className="text-sm text-gray-600">2件の新しい分配案があります</p>
+              </div>
+            </div>
+            <Link href="/profile/my-missions/rewards">
+              <Button variant="outline" size="sm" className="border-teal-200 hover:border-teal-300 hover:bg-teal-50">
+                確認する
+              </Button>
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* 予約済みミッションへの導線を追加 */}
       <Card className="mb-6 bg-gradient-to-r from-teal-50 to-emerald-50 border-teal-200">
         <CardContent className="p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <Calendar className="h-6 w-6 text-teal-600 mr-3" />
+              <div className="bg-teal-100 rounded-full p-2 mr-3 flex items-center justify-center w-10 h-10">
+                <Calendar className="h-6 w-6 text-teal-600" />
+              </div>
               <div>
                 <h3 className="font-medium">予約済みミッション</h3>
                 <p className="text-sm text-gray-600">2件の予約があります</p>
@@ -134,6 +171,12 @@ export default function ProfilePage() {
           <Button variant="outline" className="w-full justify-start py-6">
             <BadgeCheck className="mr-2 h-5 w-5" />
             実績
+          </Button>
+        </Link>
+        <Link href="/profile/my-missions">
+          <Button variant="outline" className="w-full justify-start py-6">
+            <Award className="mr-2 h-5 w-5" />
+            自分のミッション
           </Button>
         </Link>
       </div>
