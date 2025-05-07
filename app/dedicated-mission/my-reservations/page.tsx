@@ -77,7 +77,7 @@ export default function MyReservationsPage() {
               <CardContent className="p-4">
                 <div className="flex justify-between items-start mb-3">
                   <Link href={`/dedicated-mission/${reservation.id}`}>
-                    <h3 className="font-medium text-lg hover:text-teal-600 transition-colors cursor-pointer">
+                    <h3 className="font-medium text-lg hover:text-blue-600 transition-colors cursor-pointer">
                       {reservation.title}
                     </h3>
                   </Link>
@@ -113,7 +113,7 @@ export default function MyReservationsPage() {
                 <div className="flex space-x-3">
                   {canStart(reservation.time) ? (
                     <Button
-                      className="flex-1 bg-teal-600 hover:bg-teal-700"
+                      className="flex-1 bg-blue-600 hover:bg-blue-700"
                       onClick={() => startMission(reservation.id)}
                     >
                       開始する
@@ -174,7 +174,7 @@ export default function MyReservationsPage() {
               <CardContent className="p-4">
                 <div className="flex justify-between items-start mb-3">
                   <Link href={`/dedicated-mission/${reservation.id}`}>
-                    <h3 className="font-medium text-lg hover:text-teal-600 transition-colors cursor-pointer">
+                    <h3 className="font-medium text-lg hover:text-blue-600 transition-colors cursor-pointer">
                       {reservation.title}
                     </h3>
                   </Link>
@@ -182,7 +182,7 @@ export default function MyReservationsPage() {
                     variant="outline"
                     className={
                       reservation.status === "完了"
-                        ? "bg-green-50 text-green-600 border-green-200"
+                        ? "bg-blue-50 text-blue-600 border-blue-200"
                         : "bg-gray-50 text-gray-600 border-gray-200"
                     }
                   >
@@ -214,7 +214,7 @@ export default function MyReservationsPage() {
                     <span className="text-sm font-medium">固定報酬</span>
                     <span
                       className={
-                        reservation.status === "完了" ? "font-bold text-lg text-green-600" : "text-gray-400 font-medium"
+                        reservation.status === "完了" ? "font-bold text-lg text-blue-600" : "text-gray-400 font-medium"
                       }
                     >
                       {reservation.reward} pt
