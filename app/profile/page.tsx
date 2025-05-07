@@ -16,9 +16,11 @@ export default function ProfilePage() {
           <h1 className="text-xl font-bold">ユーザーさん</h1>
           <p className="text-gray-500 text-sm">東京都渋谷区</p>
         </div>
-        <Button variant="ghost" size="icon" className="ml-auto">
-          <Edit className="h-5 w-5" />
-        </Button>
+        <Link href="/profile/edit" className="ml-auto">
+          <Button variant="ghost" size="icon">
+            <Edit className="h-5 w-5" />
+          </Button>
+        </Link>
       </header>
 
       <Card className="mb-6">
