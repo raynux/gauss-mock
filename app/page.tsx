@@ -107,10 +107,15 @@ export default function Home() {
       <section className="px-4">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg flex items-center">
-              <BadgeCheck className="w-5 h-5 mr-2" />
-              最近の活動
-            </CardTitle>
+            <div className="flex justify-between items-center">
+              <CardTitle className="text-lg flex items-center">
+                <BadgeCheck className="w-5 h-5 mr-2" />
+                最近の活動
+              </CardTitle>
+              <Link href="/profile" className="text-sm text-gray-500">
+                もっと見る
+              </Link>
+            </div>
           </CardHeader>
           <CardContent>
             <div className="space-y-3 text-sm">
