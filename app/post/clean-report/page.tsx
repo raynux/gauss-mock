@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Upload, ArrowLeft, Info, Plus, Camera, Clock, Ruler, MapPin, ChevronDown, ChevronUp } from "lucide-react"
+import { Upload, ArrowLeft, Info, Plus, Camera, Clock, Ruler, MapPin, X, Navigation } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
 import { useRouter } from "next/navigation"
 import { Stepper, Step } from "@/components/stepper"
@@ -32,7 +32,7 @@ export default function CleanReportPage() {
   const [cleaningTime, setCleaningTime] = useState("00:00:00")
   const [distance, setDistance] = useState("0m")
   const [comment, setComment] = useState("")
-  const [showLocationInfo, setShowLocationInfo] = useState(false)
+  const [showLocationDrawer, setShowLocationDrawer] = useState(false)
 
   // スタート地点の写真を追加
   const addStartPhoto = () => {
@@ -108,11 +108,22 @@ export default function CleanReportPage() {
         <h1 className="text-xl font-bold">投稿</h1>
 
         {/* 清掃時間と直線距離を右上に配置 */}
-        <div className="ml-auto flex items-center text-xs text-gray-400">
-          <Clock className="h-3 w-3 mr-1" />
-          <span className="font-mono mr-2">{cleaningTime}</span>
-          <Ruler className="h-3 w-3 mr-1" />
-          <span>{distance}</span>
+        <div className="ml-auto flex items-center">
+          <div className="flex items-center text-xs text-gray-400 mr-3">
+            <Clock className="h-3 w-3 mr-1" />
+            <span className="font-mono mr-2">{cleaningTime}</span>
+            <Ruler className="h-3 w-3 mr-1" />
+            <span>{distance}</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setShowLocationDrawer(true)}
+            className="flex items-center px-2 py-1 bg-gray-100 border border-gray-200 rounded-md hover:bg-gray-200"
+            aria-label="位置情報を表示"
+          >
+            <MapPin className="h-4 w-4 mr-1 text-blue-600" />
+            <span className="text-xs">地図で確認</span>
+          </button>
         </div>
       </div>
 
@@ -129,94 +140,6 @@ export default function CleanReportPage() {
           </Stepper>
 
           <p className="text-sm text-gray-600 mb-4">{getStepDescription(step)}</p>
-
-          {/* 位置情報アコーディオン */}
-          <div className="mb-6 border rounded-md overflow-hidden">
-            <button
-              type="button"
-              className="flex items-center justify-between w-full p-3 bg-gray-50 text-left"
-              onClick={() => setShowLocationInfo(!showLocationInfo)}
-            >
-              <div className="flex items-center">
-                <MapPin className="h-4 w-4 mr-2 text-gray-500" />
-                <span className="font-medium">位置情報</span>
-              </div>
-              {showLocationInfo ? (
-                <ChevronUp className="h-4 w-4 text-gray-500" />
-              ) : (
-                <ChevronDown className="h-4 w-4 text-gray-500" />
-              )}
-            </button>
-
-            {showLocationInfo && (
-              <div className="p-3">
-                <div className="mb-3">
-                  <div className="relative h-48 bg-gray-100 rounded-md overflow-hidden mb-2">
-                    <img
-                      src="/placeholder.svg?height=300&width=400&text=Map"
-                      alt="地図"
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                      <div className="h-3 w-3 bg-red-500 rounded-full border-2 border-white"></div>
-                    </div>
-                  </div>
-                  <p className="text-xs text-gray-500 text-center">東京都渋谷区 付近</p>
-                </div>
-
-                <h4 className="text-sm font-medium mb-2">撮影場所</h4>
-                <ul className="space-y-2">
-                  {startPhoto && (
-                    <li className="flex items-center p-2 bg-gray-50 rounded-md">
-                      <div className="h-10 w-10 bg-gray-200 rounded-md overflow-hidden mr-3">
-                        <img
-                          src={startPhoto || "/placeholder.svg"}
-                          alt="スタート地点"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-sm font-medium">スタート地点</p>
-                        <p className="text-xs text-gray-500">渋谷区宮益坂 / 10:30</p>
-                      </div>
-                    </li>
-                  )}
-
-                  {cleaningPhotos.length > 0 && (
-                    <li className="flex items-center p-2 bg-gray-50 rounded-md">
-                      <div className="h-10 w-10 bg-gray-200 rounded-md overflow-hidden mr-3">
-                        <img
-                          src={cleaningPhotos[0] || "/placeholder.svg"}
-                          alt="清掃写真"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-sm font-medium">清掃活動</p>
-                        <p className="text-xs text-gray-500">渋谷区道玄坂 / 10:45</p>
-                      </div>
-                    </li>
-                  )}
-
-                  {trashPhotos.bag1Inside && (
-                    <li className="flex items-center p-2 bg-gray-50 rounded-md">
-                      <div className="h-10 w-10 bg-gray-200 rounded-md overflow-hidden mr-3">
-                        <img
-                          src={trashPhotos.bag1Inside || "/placeholder.svg"}
-                          alt="ゴミ袋"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-sm font-medium">ゴミ回収</p>
-                        <p className="text-xs text-gray-500">渋谷区神南 / 11:15</p>
-                      </div>
-                    </li>
-                  )}
-                </ul>
-              </div>
-            )}
-          </div>
 
           <form className="space-y-6">
             {step === 0 && (
@@ -454,6 +377,96 @@ export default function CleanReportPage() {
           </form>
         </CardContent>
       </Card>
+
+      {/* 位置情報ドロワー */}
+      {showLocationDrawer && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex flex-col justify-end">
+          <div className="bg-white rounded-t-xl p-4 max-h-[80vh] overflow-y-auto w-full max-w-md mx-auto">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-bold">位置情報</h3>
+              <button
+                type="button"
+                onClick={() => setShowLocationDrawer(false)}
+                className="p-1 rounded-full hover:bg-gray-100"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="mb-4">
+              <div className="relative h-64 bg-gray-100 rounded-md overflow-hidden mb-2">
+                <img
+                  src="/placeholder.svg?height=400&width=600&text=Map"
+                  alt="地図"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <div className="h-4 w-4 bg-red-500 rounded-full border-2 border-white"></div>
+                </div>
+                <div className="absolute top-4 right-4 bg-white p-2 rounded-full shadow-md">
+                  <Navigation className="h-5 w-5 text-blue-600" />
+                </div>
+              </div>
+              <p className="text-sm text-gray-500 text-center">東京都渋谷区 付近</p>
+            </div>
+
+            <h4 className="text-sm font-medium mb-2">撮影場所</h4>
+            <ul className="space-y-3">
+              {startPhoto && (
+                <li className="flex items-center p-3 bg-gray-50 rounded-md">
+                  <div className="h-12 w-12 bg-gray-200 rounded-md overflow-hidden mr-3">
+                    <img
+                      src={startPhoto || "/placeholder.svg"}
+                      alt="スタート地点"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-medium">スタート地点</p>
+                    <p className="text-xs text-gray-500">渋谷区宮益坂 / 10:30</p>
+                  </div>
+                </li>
+              )}
+
+              {cleaningPhotos.length > 0 && (
+                <li className="flex items-center p-3 bg-gray-50 rounded-md">
+                  <div className="h-12 w-12 bg-gray-200 rounded-md overflow-hidden mr-3">
+                    <img
+                      src={cleaningPhotos[0] || "/placeholder.svg"}
+                      alt="清掃写真"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-medium">清掃活動</p>
+                    <p className="text-xs text-gray-500">渋谷区道玄坂 / 10:45</p>
+                  </div>
+                </li>
+              )}
+
+              {trashPhotos.bag1Inside && (
+                <li className="flex items-center p-3 bg-gray-50 rounded-md">
+                  <div className="h-12 w-12 bg-gray-200 rounded-md overflow-hidden mr-3">
+                    <img
+                      src={trashPhotos.bag1Inside || "/placeholder.svg"}
+                      alt="ゴミ袋"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-medium">ゴミ回収</p>
+                    <p className="text-xs text-gray-500">渋谷区神南 / 11:15</p>
+                  </div>
+                </li>
+              )}
+            </ul>
+
+            <Button variant="outline" className="w-full mt-4" onClick={() => setShowLocationDrawer(false)}>
+              閉じる
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
