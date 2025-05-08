@@ -141,7 +141,7 @@ export default function AreaReportPage() {
 
             <div>
               <label className="block text-sm font-medium mb-2">コメント</label>
-              <Textarea placeholder="状況の詳細を入力してください" className="resize-none" rows={4} />
+              <Textarea placeholder="コメントを入力（任意）" className="resize-none" rows={4} />
             </div>
 
             <Button type="submit" disabled={isSubmitting} className="w-full">
