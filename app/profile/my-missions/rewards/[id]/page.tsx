@@ -10,16 +10,11 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Slider } from "@/components/ui/slider"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
-import { toast } from "@/components/ui/use-toast"
 
 export default function RewardDetailPage({ params }: { params: { id: string } }) {
   const router = useRouter()
   const rewardId = Number.parseInt(params.id)
   const [showConfirmDialog, setShowConfirmDialog] = useState(false)
-  const [showPhotoGallery, setShowPhotoGallery] = useState(false)
-  const [galleryImages, setGalleryImages] = useState<string[]>([])
-  const [galleryTitle, setGalleryTitle] = useState("")
-  const [isUpdating, setIsUpdating] = useState(false)
 
   // サンプルデータ
   const rewardDetail = {
@@ -27,8 +22,6 @@ export default function RewardDetailPage({ params }: { params: { id: string } })
     location: "沖縄県那覇市",
     period: "1月20日 - 1月26日",
     budget: 4550,
-    totalAmount: 200,
-    status: rewardId === 1 || rewardId === 2 ? "pending" : "confirmed",
     participants: [
       {
         id: 1,
@@ -66,65 +59,31 @@ export default function RewardDetailPage({ params }: { params: { id: string } })
         ],
       },
     ],
+    status: rewardId === 1 || rewardId === 2 ? "pending" : "confirmed",
   }
 
   const [participantRewards, setParticipantRewards] = useState(
     rewardDetail.participants.map((p) => ({ id: p.id, amount: p.amount })),
   )
 
-  const handleRewardChange = async (participantId: number, newValue: number[]) => {
-    if (isUpdating) return
+  // 支払額合計を計算
+  const totalAmount = participantRewards.reduce((sum, p) => sum + p.amount, 0)
 
-    setIsUpdating(true)
-
-    // 報酬額を更新
+  const handleRewardChange = (participantId: number, newValue: number[]) => {
     setParticipantRewards(participantRewards.map((p) => (p.id === participantId ? { ...p, amount: newValue[0] } : p)))
-
-    try {
-      // 実際のAPIリクエストをシミュレート
-      await new Promise((resolve) => setTimeout(resolve, 500))
-
-      // 成功通知
-      toast({
-        title: "報酬分配を更新しました",
-        description: `${rewardDetail.participants.find((p) => p.id === participantId)?.name}さんの報酬を${newValue[0]}ptに設定しました`,
-        duration: 3000,
-      })
-    } catch (error) {
-      console.error("報酬更新エラー:", error)
-      toast({
-        title: "エラーが発生しました",
-        description: "報酬分配の更新に失敗しました。もう一度お試しください。",
-        variant: "destructive",
-        duration: 3000,
-      })
-    } finally {
-      setIsUpdating(false)
-    }
   }
 
-  const openPhotoGallery = (images: string[], moreImages: number, date: string) => {
-    // 表示されている画像に加えて、追加の画像を生成
-    const allImages = [...images]
-
-    // moreImages が存在する場合、追加の画像を生成
-    if (moreImages > 0) {
-      for (let i = 0; i < moreImages; i++) {
-        const index = images.length + i
-        allImages.push(`/placeholder.svg?height=80&width=80&text=写真${index + 1}`)
-      }
-    }
-
-    setGalleryImages(allImages)
-    setGalleryTitle(`${date}の活動写真`)
-    setShowPhotoGallery(true)
+  const handleConfirm = () => {
+    // 確定処理
+    setShowConfirmDialog(false)
+    router.push("/profile/my-missions/rewards?tab=confirmed")
   }
 
   const isPending = rewardDetail.status === "pending"
 
   return (
     <div className="reward-detail-page p-4 pt-8 pb-20">
-      <header className="flex items-center justify-between mb-6">
+      <header className="flex items-center mb-6">
         <div className="flex items-center">
           <Link href="/profile/my-missions/rewards" className="mr-2">
             <Button variant="ghost" size="icon" className="h-9 w-9">
@@ -147,7 +106,7 @@ export default function RewardDetailPage({ params }: { params: { id: string } })
               </div>
               <div>
                 <p className="text-sm text-gray-500">支払額合計</p>
-                <p className="text-lg font-semibold">{rewardDetail.totalAmount.toLocaleString()} pt</p>
+                <p className="text-lg font-semibold">{totalAmount.toLocaleString()} pt</p>
               </div>
               <div className="col-span-2">
                 <p className="text-sm text-gray-500">評価期間</p>
@@ -189,15 +148,11 @@ export default function RewardDetailPage({ params }: { params: { id: string } })
                       step={10}
                       onValueChange={(value) => handleRewardChange(participant.id, value)}
                       className="mt-2"
-                      disabled={isUpdating}
                     />
                     <div className="flex justify-between text-xs text-gray-500 mt-1">
                       <span>0 pt</span>
                       <span>500 pt</span>
                     </div>
-                    <p className="text-xs text-gray-500 text-center mt-1">
-                      スライダーを動かすと自動的に報酬が確定されます
-                    </p>
                   </div>
                 )}
               </div>
@@ -231,11 +186,7 @@ export default function RewardDetailPage({ params }: { params: { id: string } })
                   <div key={index} className="mb-6 last:mb-0">
                     <div className="grid grid-cols-4 gap-2 mb-2">
                       {activity.images.slice(0, 4).map((img, imgIndex) => (
-                        <div
-                          key={imgIndex}
-                          className="relative aspect-square rounded-md overflow-hidden bg-gray-200 cursor-pointer"
-                          onClick={() => openPhotoGallery(activity.images, activity.moreImages, activity.date)}
-                        >
+                        <div key={imgIndex} className="relative aspect-square rounded-md overflow-hidden bg-gray-200">
                           <Image
                             src={img || "/placeholder.svg"}
                             alt={`活動写真 ${imgIndex + 1}`}
@@ -274,29 +225,40 @@ export default function RewardDetailPage({ params }: { params: { id: string } })
         ))}
       </div>
 
-      {/* 写真ギャラリーダイアログ */}
-      <Dialog open={showPhotoGallery} onOpenChange={setShowPhotoGallery}>
-        <DialogContent className="max-w-[90vw] max-h-[90vh] p-0 overflow-hidden">
-          <DialogHeader className="p-4 border-b">
-            <DialogTitle>{galleryTitle}</DialogTitle>
+      {/* 確定確認ダイアログ */}
+      <Dialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
+        <DialogContent className="max-w-[350px] mx-auto">
+          <DialogHeader>
+            <DialogTitle>報酬分配を確定しますか？</DialogTitle>
           </DialogHeader>
-          <div className="p-4 overflow-auto max-h-[70vh]">
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-              {galleryImages.map((img, index) => (
-                <div key={index} className="aspect-square rounded-md overflow-hidden bg-gray-200">
-                  <Image
-                    src={img || "/placeholder.svg"}
-                    alt={`活動写真 ${index + 1}`}
-                    width={200}
-                    height={200}
-                    className="object-cover w-full h-full"
-                  />
+
+          <div className="py-4">
+            <p className="text-sm text-gray-600 mb-4">
+              この操作を行うと、参加者に報酬が付与されます。確定後の変更はできません。
+            </p>
+
+            <div className="bg-gray-50 p-3 rounded-md">
+              <p className="text-sm font-medium mb-2">報酬分配内容</p>
+              {rewardDetail.participants.map((participant) => (
+                <div key={participant.id} className="flex justify-between items-center mb-2 last:mb-0">
+                  <p className="text-sm">{participant.name}</p>
+                  <p className="font-medium">
+                    {participantRewards.find((p) => p.id === participant.id)?.amount || 0} pt
+                  </p>
                 </div>
               ))}
+              <div className="border-t border-gray-200 mt-2 pt-2 flex justify-between items-center">
+                <p className="font-medium">合計</p>
+                <p className="font-bold">{totalAmount} pt</p>
+              </div>
             </div>
           </div>
-          <DialogFooter className="p-4 border-t">
-            <Button onClick={() => setShowPhotoGallery(false)}>閉じる</Button>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowConfirmDialog(false)}>
+              キャンセル
+            </Button>
+            <Button onClick={handleConfirm}>確定する</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
