@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { ArrowLeft, X, Camera, ShoppingCart } from "lucide-react"
+import { ArrowLeft, X, Camera, Plus } from "lucide-react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 
@@ -73,8 +73,11 @@ export default function MissionSettingsPage() {
           <span className="text-xl sm:text-2xl font-bold">204,184</span>
           <span className="text-gray-600 ml-1">P</span>
         </div>
-        <Button variant="outline" className="flex items-center whitespace-nowrap">
-          <ShoppingCart className="w-4 h-4 mr-1" />
+        <Button
+          variant="default"
+          className="flex items-center whitespace-nowrap bg-gray-800 hover:bg-gray-700 text-white"
+        >
+          <Plus className="w-4 h-4 mr-1" />
           ポイント購入
         </Button>
       </div>
@@ -84,6 +87,16 @@ export default function MissionSettingsPage() {
         <div className="space-y-6">
           <div>
             <h2 className="text-lg font-medium mb-2">東京都世田谷区北沢</h2>
+            {/* 地図表示 */}
+            <div className="w-full h-40 rounded-lg overflow-hidden border mb-4">
+              <Image
+                src="/placeholder.svg?height=300&width=600&text=世田谷区北沢の地図"
+                alt="世田谷区北沢の地図"
+                width={600}
+                height={300}
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
 
           <div className="space-y-2">
