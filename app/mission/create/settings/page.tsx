@@ -67,13 +67,13 @@ export default function MissionSettingsPage() {
       </div>
 
       {/* 使用可能ポイント表示 */}
-      <div className="p-4 flex justify-between items-center border-b bg-white">
+      <div className="p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b bg-white">
         <div className="flex items-center">
-          <span className="text-gray-600 mr-2">使用可能ポイント</span>
-          <span className="text-2xl font-bold">204,184</span>
+          <span className="text-gray-600 mr-2 whitespace-nowrap">使用可能ポイント</span>
+          <span className="text-xl sm:text-2xl font-bold">204,184</span>
           <span className="text-gray-600 ml-1">P</span>
         </div>
-        <Button variant="outline" className="flex items-center">
+        <Button variant="outline" className="flex items-center whitespace-nowrap">
           <ShoppingCart className="w-4 h-4 mr-1" />
           ポイント購入
         </Button>
