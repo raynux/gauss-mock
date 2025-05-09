@@ -114,19 +114,25 @@ export default function CleaningReportSocialSharePage() {
 
             {/* 活動統計 */}
             <div className="grid grid-cols-2 gap-4 mb-6">
-              <div className="bg-blue-50 p-3 rounded-lg flex items-center">
-                <MapPin className="w-5 h-5 mr-2 text-blue-600 flex-shrink-0" />
-                <div>
-                  <div className="text-sm text-gray-600">エリアレポート</div>
-                  <div className="text-lg font-bold">{userData.areaReports}件</div>
+              <div className="bg-blue-50 p-3 rounded-lg">
+                <div className="flex items-center text-gray-700 mb-1">
+                  <MapPin className="w-4 h-4 mr-2 text-blue-600" />
+                  <span className="text-sm font-medium">エリアレポート</span>
                 </div>
+                <p className="text-lg font-bold">
+                  {userData.areaReports}
+                  <span className="text-sm ml-1">件</span>
+                </p>
               </div>
-              <div className="bg-green-50 p-3 rounded-lg flex items-center">
-                <Trash2 className="w-5 h-5 mr-2 text-green-600 flex-shrink-0" />
-                <div>
-                  <div className="text-sm text-gray-600">清掃レポート</div>
-                  <div className="text-lg font-bold">{userData.cleaningReports}件</div>
+              <div className="bg-green-50 p-3 rounded-lg">
+                <div className="flex items-center text-gray-700 mb-1">
+                  <Trash2 className="w-4 h-4 mr-2 text-green-600" />
+                  <span className="text-sm font-medium">清掃レポート</span>
                 </div>
+                <p className="text-lg font-bold">
+                  {userData.cleaningReports}
+                  <span className="text-sm ml-1">件</span>
+                </p>
               </div>
             </div>
 
@@ -144,14 +150,20 @@ export default function CleaningReportSocialSharePage() {
                   <Clock className="w-4 h-4 mr-2 text-blue-600" />
                   <span className="text-sm font-medium">清掃時間</span>
                 </div>
-                <p className="text-lg font-bold">{userData.time}</p>
+                <p className="text-lg font-bold">
+                  {userData.time.replace("分", "")}
+                  <span className="text-sm ml-1">分</span>
+                </p>
               </div>
               <div className="bg-gray-50 p-3 rounded-lg">
                 <div className="flex items-center text-gray-700 mb-1">
                   <Ruler className="w-4 h-4 mr-2 text-blue-600" />
                   <span className="text-sm font-medium">直線距離</span>
                 </div>
-                <p className="text-lg font-bold">{userData.distance}</p>
+                <p className="text-lg font-bold">
+                  {userData.distance.replace("m", "")}
+                  <span className="text-sm ml-1">m</span>
+                </p>
               </div>
               {/* 場所の表示方法を変更 - 複数行表示に */}
               <div className="bg-gray-50 p-3 rounded-lg">
