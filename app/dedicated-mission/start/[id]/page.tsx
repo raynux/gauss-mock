@@ -56,7 +56,7 @@ export default function StartDedicatedMissionPage({ params }: { params: { id: st
 
   // ミッション完了
   const completeMission = () => {
-    router.push("/dedicated-mission/my-reservations")
+    router.push(`/dedicated-mission/start/${params.id}/thank-you`)
   }
 
   // ミッション中断
