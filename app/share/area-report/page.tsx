@@ -78,9 +78,7 @@ export default function AreaReportSharePage() {
           <Button
             variant="outline"
             className="w-full justify-between py-6"
-            onClick={() =>
-              window.open("https://twitter.com/intent/tweet?url=https://app.mego.work/share/area-report/12345")
-            }
+            onClick={() => (window.location.href = "/share/area-report/social-share")}
           >
             <div className="flex items-center">
               <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center mr-3">
@@ -118,9 +116,7 @@ export default function AreaReportSharePage() {
           <Button
             variant="outline"
             className="w-full justify-between py-6"
-            onClick={() =>
-              window.open("https://www.facebook.com/sharer/sharer.php?u=https://app.mego.work/share/area-report/12345")
-            }
+            onClick={() => (window.location.href = "/share/area-report/social-share")}
           >
             <div className="flex items-center">
               <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center mr-3">
