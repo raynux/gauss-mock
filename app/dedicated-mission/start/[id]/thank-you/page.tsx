@@ -13,11 +13,11 @@ export default function DedicatedMissionThankYouPage() {
           <div className="flex justify-center mb-2">
             <CheckCircle className="h-16 w-16 text-green-500" />
           </div>
-          <CardTitle className="text-2xl">ミッション完了</CardTitle>
+          <CardTitle className="text-2xl">専用ミッション完了</CardTitle>
         </CardHeader>
         <CardContent className="text-center">
           <p className="text-gray-600">
-            ミッションが正常に完了しました。
+            専用ミッションが完了しました。
             <br />
             素晴らしい活動をありがとうございます！
           </p>
@@ -31,13 +31,8 @@ export default function DedicatedMissionThankYouPage() {
         </CardContent>
         <CardFooter className="flex flex-col space-y-2">
           <Link href="/" className="w-full">
-            <Button variant="outline" className="w-full">
+            <Button variant="default" className="w-full bg-gray-800 hover:bg-gray-700 text-white">
               ホームに戻る
-            </Button>
-          </Link>
-          <Link href="/dedicated-mission/my-reservations" className="w-full">
-            <Button variant="outline" className="w-full">
-              予約一覧に戻る
             </Button>
           </Link>
         </CardFooter>
