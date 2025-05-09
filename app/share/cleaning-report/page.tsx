@@ -67,7 +67,7 @@ export default function CleaningReportSharePage() {
       <div className="flex-1 flex flex-col">
         <div className="relative w-full aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden mb-4">
           <Image
-            src={`/placeholder.svg?key=2vzrr&key=nbwxr&height=300&width=400&text=清掃${mainImageId}`}
+            src={`/placeholder_清掃.png?key=2vzrr&key=nbwxr&height=300&width=400&text=清掃${mainImageId}`}
             width={400}
             height={300}
             alt="清掃写真"
@@ -110,9 +110,7 @@ export default function CleaningReportSharePage() {
           <Button
             variant="outline"
             className="w-full justify-between py-6"
-            onClick={() =>
-              window.open("https://twitter.com/intent/tweet?url=https://app.mego.work/share/clean-report/12345")
-            }
+            onClick={() => (window.location.href = "/share/cleaning-report/social-share/")}
           >
             <div className="flex items-center">
               <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center mr-3">
@@ -150,9 +148,7 @@ export default function CleaningReportSharePage() {
           <Button
             variant="outline"
             className="w-full justify-between py-6"
-            onClick={() =>
-              window.open("https://www.facebook.com/sharer/sharer.php?u=https://app.mego.work/share/clean-report/12345")
-            }
+            onClick={() => (window.location.href = "/share/cleaning-report/social-share/")}
           >
             <div className="flex items-center">
               <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center mr-3">
