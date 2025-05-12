@@ -67,7 +67,7 @@ export default function SharePage() {
       <div className="flex-1 flex flex-col">
         <div className="relative w-full aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden mb-4">
           <Image
-            src={`/placeholder.svg?key=90sk0&height=300&width=400&text=清掃${mainImageId}`}
+            src={`/placeholder.svg?key=0uc6c&key=90sk0&height=300&width=400&text=清掃${mainImageId}`}
             width={400}
             height={300}
             alt="活動写真"
@@ -125,10 +125,10 @@ export default function SharePage() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
-                  <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+                  <path d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </div>
-              <span>で活動内容をシェアする</span>
+              <span>Xで活動内容をシェアする</span>
             </div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
