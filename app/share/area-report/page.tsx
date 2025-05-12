@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, ImageIcon, LinkIcon, AlertTriangle } from "lucide-react"
+import { ArrowLeft, ImageIcon, LinkIcon, AlertTriangle, XIcon, Facebook, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { useToast } from "@/hooks/use-toast"
@@ -82,35 +82,11 @@ export default function AreaReportSharePage() {
           >
             <div className="flex items-center">
               <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center mr-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <XIcon className="h-4 w-4 text-white" />
               </div>
               <span>Xで活動内容をシェアする</span>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="m9 18 6-6-6-6" />
-            </svg>
+            <ArrowRight className="h-5 w-5" />
           </Button>
 
           <Button
@@ -120,35 +96,11 @@ export default function AreaReportSharePage() {
           >
             <div className="flex items-center">
               <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center mr-3">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                </svg>
+                <Facebook className="h-4 w-4 text-white" />
               </div>
               <span>で活動内容をシェアする</span>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="m9 18 6-6-6-6" />
-            </svg>
+            <ArrowRight className="h-5 w-5" />
           </Button>
 
           <Button variant="outline" className="w-full justify-between py-6" onClick={copyUrl}>
@@ -158,19 +110,7 @@ export default function AreaReportSharePage() {
               </div>
               <span>URLをコピー</span>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="m9 18 6-6-6-6" />
-            </svg>
+            <ArrowRight className="h-5 w-5" />
           </Button>
 
           <Button variant="outline" className="w-full justify-between py-6" onClick={saveImage}>
@@ -180,19 +120,7 @@ export default function AreaReportSharePage() {
               </div>
               <span>サムネイル画像を保存</span>
             </div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="m9 18 6-6-6-6" />
-            </svg>
+            <ArrowRight className="h-5 w-5" />
           </Button>
         </div>
 
