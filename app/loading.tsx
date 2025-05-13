@@ -31,7 +31,7 @@ export default function LoadingScreen() {
     <div className="fixed inset-0 bg-white flex flex-col items-center justify-center z-50">
       <div className="w-40 h-40 mb-8 relative">
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-full h-full rounded-full border-4 border-t-transparent border-green-500 animate-spin"></div>
+          <div className="w-full h-full rounded-full border-4 border-t-transparent border-gray-600 animate-spin"></div>
         </div>
         <div className="absolute inset-0 flex items-center justify-center p-2">
           <Image
@@ -39,7 +39,7 @@ export default function LoadingScreen() {
             alt="MeGo Logo"
             width={160}
             height={160}
-            className="w-full h-full object-contain"
+            className="w-full h-full object-contain opacity-90 filter blur-[0.1px]"
             priority
           />
         </div>
@@ -50,7 +50,7 @@ export default function LoadingScreen() {
 
       <div className="w-64 h-2 bg-gray-200 rounded-full overflow-hidden mb-2">
         <div
-          className="h-full bg-green-500 rounded-full transition-all duration-300 ease-out"
+          className="h-full bg-blue-500 rounded-full transition-all duration-300 ease-out"
           style={{ width: `${progress}%` }}
         />
       </div>
@@ -59,19 +59,19 @@ export default function LoadingScreen() {
       <div className="absolute bottom-8 left-0 right-0 flex justify-center">
         <div className="flex space-x-1">
           <span
-            className="block w-3 h-3 bg-green-200 rounded-full animate-bounce"
+            className="block w-3 h-3 bg-blue-200 rounded-full animate-bounce"
             style={{ animationDelay: "0ms" }}
           ></span>
           <span
-            className="block w-3 h-3 bg-green-300 rounded-full animate-bounce"
+            className="block w-3 h-3 bg-blue-300 rounded-full animate-bounce"
             style={{ animationDelay: "150ms" }}
           ></span>
           <span
-            className="block w-3 h-3 bg-green-400 rounded-full animate-bounce"
+            className="block w-3 h-3 bg-blue-400 rounded-full animate-bounce"
             style={{ animationDelay: "300ms" }}
           ></span>
           <span
-            className="block w-3 h-3 bg-green-500 rounded-full animate-bounce"
+            className="block w-3 h-3 bg-blue-500 rounded-full animate-bounce"
             style={{ animationDelay: "450ms" }}
           ></span>
         </div>
