@@ -50,7 +50,7 @@ export default function LoadingScreen() {
 
       <div className="w-64 h-2 bg-gray-200 rounded-full overflow-hidden mb-2">
         <div
-          className="h-full bg-blue-500 rounded-full transition-all duration-300 ease-out"
+          className="h-full bg-gray-600 rounded-full transition-all duration-300 ease-out"
           style={{ width: `${progress}%` }}
         />
       </div>
