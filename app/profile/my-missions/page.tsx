@@ -28,6 +28,7 @@ export default function MyMissionsPage() {
       participants: 3,
       isActive: true,
       hasNewRewards: true,
+      image: `/placeholder.svg?height=200&width=400&text=渋谷区神宮前1丁目`,
     },
     {
       id: 2,
@@ -39,6 +40,7 @@ export default function MyMissionsPage() {
       participants: 6,
       isActive: true,
       hasNewRewards: false,
+      image: `/placeholder.svg?height=200&width=400&text=渋谷区神宮前2丁目`,
     },
     {
       id: 3,
@@ -50,6 +52,7 @@ export default function MyMissionsPage() {
       participants: 4,
       isActive: false,
       hasNewRewards: false,
+      image: `/placeholder.svg?height=200&width=400&text=渋谷区神宮前3丁目`,
     },
   ]
 
@@ -113,53 +116,72 @@ export default function MyMissionsPage() {
       <div className="space-y-4">
         {missions.map((mission) => (
           <Card key={mission.id} className={`overflow-hidden ${!mission.isActive ? "bg-gray-50 border-gray-200" : ""}`}>
-            <CardContent className="p-4">
-              <div className="flex justify-between items-start mb-3">
-                <div>
-                  <div className="flex items-center">
-                    <h3 className="font-medium text-lg">{mission.title}</h3>
-                    {mission.hasNewRewards && <Badge className="ml-2 bg-teal-500 text-white">新規分配案</Badge>}
-                    {!mission.isActive && (
-                      <div className="flex items-center ml-2 text-gray-500">
-                        <EyeOff className="h-4 w-4 mr-1" />
-                        <span className="text-xs">非表示</span>
-                      </div>
-                    )}
+            <CardContent className="p-0">
+              <div className="relative">
+                <div className="h-48 bg-gray-100">
+                  <Image
+                    src={mission.image || `/placeholder.svg?height=200&width=400&text=Mission${mission.id}`}
+                    width={400}
+                    height={200}
+                    alt={mission.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+
+              <div className="p-4">
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <div className="flex items-center">
+                      <h3 className="font-medium text-lg">{mission.title}</h3>
+                      {mission.hasNewRewards && <Badge className="ml-2 bg-teal-500 text-white">新規分配案</Badge>}
+                      {!mission.isActive && (
+                        <div className="flex items-center ml-2 text-gray-500">
+                          <EyeOff className="h-4 w-4 mr-1" />
+                          <span className="text-xs">非表示</span>
+                        </div>
+                      )}
+                    </div>
+                    <p className="text-sm text-gray-500">作成: {mission.createdAt}</p>
                   </div>
-                  <p className="text-sm text-gray-500">作成: {mission.createdAt}</p>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8"
+                      onClick={() => setEditingMission(mission.id)}
+                    >
+                      <Edit className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
-                <div className="flex gap-2">
-                  <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setEditingMission(mission.id)}>
-                    <Edit className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
 
-              <div className="grid grid-cols-2 gap-3 mb-3">
-                <div className="bg-gray-100 p-2 rounded-md">
-                  <p className="text-xs text-gray-500">予算</p>
-                  <p className="font-medium">{mission.budget.toLocaleString()} pt</p>
+                <div className="grid grid-cols-2 gap-3 mb-3">
+                  <div className="bg-gray-100 p-2 rounded-md">
+                    <p className="text-xs text-gray-500">予算</p>
+                    <p className="font-medium">{mission.budget.toLocaleString()} pt</p>
+                  </div>
+                  <div className="bg-gray-100 p-2 rounded-md">
+                    <p className="text-xs text-gray-500">週間上限</p>
+                    <p className="font-medium">{mission.weeklyBudget.toLocaleString()} pt</p>
+                  </div>
+                  <div className="bg-gray-100 p-2 rounded-md">
+                    <p className="text-xs text-gray-500">一人当たり上限</p>
+                    <p className="font-medium">{mission.maxReward.toLocaleString()} pt</p>
+                  </div>
+                  <div className="bg-gray-100 p-2 rounded-md">
+                    <p className="text-xs text-gray-500">参加者数</p>
+                    <p className="font-medium">{mission.participants}人</p>
+                  </div>
                 </div>
-                <div className="bg-gray-100 p-2 rounded-md">
-                  <p className="text-xs text-gray-500">週間上限</p>
-                  <p className="font-medium">{mission.weeklyBudget.toLocaleString()} pt</p>
-                </div>
-                <div className="bg-gray-100 p-2 rounded-md">
-                  <p className="text-xs text-gray-500">一人当たり上限</p>
-                  <p className="font-medium">{mission.maxReward.toLocaleString()} pt</p>
-                </div>
-                <div className="bg-gray-100 p-2 rounded-md">
-                  <p className="text-xs text-gray-500">参加者数</p>
-                  <p className="font-medium">{mission.participants}人</p>
-                </div>
-              </div>
 
-              <div>
-                <Link href={`/profile/my-missions/rewards?mission=${mission.id}`}>
-                  <Button variant="outline" size="sm">
-                    報酬分配履歴
-                  </Button>
-                </Link>
+                <div>
+                  <Link href={`/profile/my-missions/rewards?mission=${mission.id}`}>
+                    <Button variant="outline" size="sm">
+                      報酬分配履歴
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -195,7 +217,7 @@ export default function MyMissionsPage() {
             <div className="flex items-center gap-3 mb-2">
               <div className="w-16 h-16 bg-gray-100 rounded-md overflow-hidden">
                 <Image
-                  src={`/placeholder.svg?key=77fo3&key=f4uou&height=64&width=64&text=Mission${editingMission || 1}`}
+                  src={`/placeholder.svg?key=etvjp&key=2sdh1&key=77fo3&key=f4uou&height=64&width=64&text=Mission${editingMission || 1}`}
                   width={64}
                   height={64}
                   alt={`ミッション`}
