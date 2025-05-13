@@ -39,7 +39,7 @@ export default function LoadingScreen() {
             alt="MeGo Logo"
             width={160}
             height={160}
-            className="w-full h-full object-contain opacity-90 filter blur-[0.1px]"
+            className="w-full h-full object-contain brightness-70"
             priority
           />
         </div>
