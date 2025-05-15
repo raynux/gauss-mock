@@ -155,11 +155,13 @@ export default function BoundaryDetailPage({ params }: { params: { id: string } 
               ].map((mission, index) => (
                 <div key={index} className="p-4 border rounded-lg">
                   <div className="flex items-center mb-3">
-                    <Avatar className="h-8 w-8 mr-2">
-                      <AvatarImage src={mission.owner.avatar || "/placeholder.svg"} alt={mission.owner.name} />
-                      <AvatarFallback>{mission.owner.name.charAt(0)}</AvatarFallback>
-                    </Avatar>
-                    <h3 className="font-medium">{mission.location}</h3>
+                    <Link href={`/user/user-${index + 1}`} className="flex items-center">
+                      <Avatar className="h-8 w-8 mr-2">
+                        <AvatarImage src={mission.owner.avatar || "/placeholder.svg"} alt={mission.owner.name} />
+                        <AvatarFallback>{mission.owner.name.charAt(0)}</AvatarFallback>
+                      </Avatar>
+                      <h3 className="font-medium">{mission.owner.name}</h3>
+                    </Link>
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 mb-3">
@@ -192,7 +194,7 @@ export default function BoundaryDetailPage({ params }: { params: { id: string } 
                   <Link href={`/user/user-${i + 1}`} className="block">
                     <Avatar className="h-12 w-12 mb-1 border-2 border-white shadow-sm transition-transform group-hover:scale-110">
                       <AvatarImage
-                        src={`/placeholder.svg?key=740v1&key=izxix&key=7wspb&key=p8uxu&key=03nd4&key=ev623&key=i0hm7&height=48&width=48&text=U${i + 1}`}
+                        src={`/placeholder-ahv9z.png?key=740v1&key=izxix&key=7wspb&key=p8uxu&key=03nd4&key=ev623&key=i0hm7&height=48&width=48&text=U${i + 1}`}
                         alt={`ユーザー${i + 1}`}
                       />
                       <AvatarFallback>U{i + 1}</AvatarFallback>
