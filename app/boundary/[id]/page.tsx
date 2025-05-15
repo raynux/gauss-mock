@@ -5,6 +5,30 @@ import Image from "next/image"
 import Link from "next/link"
 
 export default function BoundaryDetailPage({ params }: { params: { id: string } }) {
+  // ダミーユーザーデータ（非常に長い名前を含む）
+  const dummyUsers = [
+    { id: 1, name: "田中", avatar: "/placeholder-ahv9z.png?height=48&width=48&text=田中" },
+    { id: 2, name: "鈴木一郎", avatar: "/placeholder-ahv9z.png?height=48&width=48&text=鈴木" },
+    { id: 3, name: "東京環境クリーンプロジェクト", avatar: "/placeholder-ahv9z.png?height=48&width=48&text=東京" },
+    { id: 4, name: "高橋", avatar: "/placeholder-ahv9z.png?height=48&width=48&text=高橋" },
+    { id: 5, name: "渡辺京子", avatar: "/placeholder-ahv9z.png?height=48&width=48&text=渡辺" },
+    { id: 6, name: "渋谷区環境保全推進委員会メンバー", avatar: "/placeholder-ahv9z.png?height=48&width=48&text=渋谷" },
+    { id: 7, name: "山本", avatar: "/placeholder-ahv9z.png?height=48&width=48&text=山本" },
+    { id: 8, name: "中村太郎", avatar: "/placeholder-ahv9z.png?height=48&width=48&text=中村" },
+    {
+      id: 9,
+      name: "エコフレンドリー・サステナビリティ推進協会",
+      avatar: "/placeholder-ahv9z.png?height=48&width=48&text=エコ",
+    },
+    { id: 10, name: "加藤", avatar: "/placeholder-ahv9z.png?height=48&width=48&text=加藤" },
+    {
+      id: 11,
+      name: "地球にやさしい未来創造プロジェクト2023",
+      avatar: "/placeholder-ahv9z.png?height=48&width=48&text=地球",
+    },
+    { id: 12, name: "松本さくらこ", avatar: "/placeholder-ahv9z.png?height=48&width=48&text=松本" },
+  ]
+
   return (
     <div className="boundary-detail pb-6">
       <div className="relative h-48 bg-gray-200">
@@ -189,18 +213,19 @@ export default function BoundaryDetailPage({ params }: { params: { id: string } 
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-4 gap-2">
-              {Array.from({ length: 12 }).map((_, i) => (
-                <div key={i} className="flex flex-col items-center group">
-                  <Link href={`/user/user-${i + 1}`} className="block">
+              {dummyUsers.map((user) => (
+                <div key={user.id} className="flex flex-col items-center group w-full">
+                  <Link href={`/user/user-${user.id}`} className="block">
                     <Avatar className="h-12 w-12 mb-1 border-2 border-white shadow-sm transition-transform group-hover:scale-110">
-                      <AvatarImage
-                        src={`/placeholder-ahv9z.png?key=740v1&key=izxix&key=7wspb&key=p8uxu&key=03nd4&key=ev623&key=i0hm7&height=48&width=48&text=U${i + 1}`}
-                        alt={`ユーザー${i + 1}`}
-                      />
-                      <AvatarFallback>U{i + 1}</AvatarFallback>
+                      <AvatarImage src={user.avatar || "/placeholder.svg"} alt={user.name} />
+                      <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
                     </Avatar>
                   </Link>
-                  <p className="text-xs font-medium truncate w-full text-center">ユーザー{i + 1}</p>
+                  <div className="w-full px-1">
+                    <p className="text-xs font-medium truncate w-full text-center" title={user.name}>
+                      {user.name}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
