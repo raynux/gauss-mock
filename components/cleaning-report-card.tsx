@@ -8,11 +8,8 @@ interface CleaningReportCardProps {
   location: string
   timeAgo: string
   duration: number
-  distance: string // 追加
+  distance?: string
   comment: string
-  hasReward?: boolean
-  rewardAmount?: number
-  status?: string
 }
 
 export default function CleaningReportCard({
@@ -20,20 +17,17 @@ export default function CleaningReportCard({
   location,
   timeAgo,
   duration,
-  distance, // 追加
+  distance = "0.5km",
   comment,
-  hasReward = false,
-  rewardAmount = 0,
-  status,
 }: CleaningReportCardProps) {
   return (
-    <Link href={`/share/cleaning-report/${id}`} className="block">
+    <Link href={`/share/cleaning-report/social-share?images=${id}`} className="block">
       <Card className="hover:shadow-md transition-shadow">
         <CardContent className="p-5">
           <div className="flex items-start space-x-4">
             <div className="w-24 h-24 bg-gray-100 rounded-md overflow-hidden flex-shrink-0">
               <Image
-                src={`/placeholder-zh6ur.png?key=26lkj&key=i0kan&key=4dwhm&key=oedyx&key=skg28&key=41o2p&key=nsi7d&key=8iotg&key=8mywh&height=96&width=96&text=清掃${id}`}
+                src={`/placeholder-t0dta.png?height=96&width=96&text=清掃${id}`}
                 width={96}
                 height={96}
                 alt={`清掃写真 ${id}`}

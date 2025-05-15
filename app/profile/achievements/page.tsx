@@ -105,9 +105,6 @@ export default function AchievementsPage() {
               duration: 45,
               distance: "0.5km",
               comment: "公園内のゴミ拾いを行いました。合計で45Lのゴミ袋1つ分を回収しました。",
-              hasReward: true,
-              rewardAmount: 150,
-              status: "付与済み",
             },
             {
               id: 2,
@@ -116,8 +113,6 @@ export default function AchievementsPage() {
               duration: 60,
               distance: "0.8km",
               comment: "公園内のゴミ拾いを行いました。合計で45Lのゴミ袋2つ分を回収しました。",
-              hasReward: true,
-              rewardAmount: 200,
             },
             {
               id: 3,
@@ -126,7 +121,6 @@ export default function AchievementsPage() {
               duration: 75,
               distance: "1.2km",
               comment: "公園内のゴミ拾いを行いました。合計で45Lのゴミ袋3つ分を回収しました。",
-              hasReward: false,
             },
           ].map((item) => (
             <CleaningReportCard
@@ -137,9 +131,6 @@ export default function AchievementsPage() {
               duration={item.duration}
               distance={item.distance}
               comment={item.comment}
-              hasReward={item.hasReward}
-              rewardAmount={item.rewardAmount}
-              status={item.status}
             />
           ))}
         </TabsContent>

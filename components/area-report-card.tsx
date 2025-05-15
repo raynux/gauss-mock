@@ -1,7 +1,7 @@
-import type React from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { MapPin, AlertTriangle } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 
 interface AreaReportCardProps {
   id: number
@@ -10,7 +10,6 @@ interface AreaReportCardProps {
   pollutionLevel: number
   comment: string
   photoCount: number
-  dateIcon?: React.ReactNode
 }
 
 export default function AreaReportCard({
@@ -20,7 +19,6 @@ export default function AreaReportCard({
   pollutionLevel,
   comment,
   photoCount,
-  dateIcon = <MapPin className="w-3 h-3 mr-1" />,
 }: AreaReportCardProps) {
   // 汚染レベルに応じたスタイルを取得
   const getLevelInfo = (level: number) => {
@@ -56,38 +54,40 @@ export default function AreaReportCard({
   const { color } = getLevelInfo(pollutionLevel)
 
   return (
-    <Card>
-      <CardContent className="p-3">
-        <div className="flex items-start">
-          <div className="flex-1">
-            <div className="flex items-center justify-between mb-1">
-              <h3 className="font-medium">{location}</h3>
-              <div className={`flex items-center text-xs px-2 py-1 rounded-full ${color}`}>
-                <AlertTriangle className="w-3 h-3 mr-1" />
-                <span>汚染レベル: {pollutionLevel}</span>
+    <Link href={`/share/area-report/social-share?images=${id}`}>
+      <Card className="hover:shadow-md transition-shadow">
+        <CardContent className="p-3">
+          <div className="flex items-start">
+            <div className="flex-1">
+              <div className="flex items-center justify-between mb-1">
+                <h3 className="font-medium">{location}</h3>
+                <div className={`flex items-center text-xs px-2 py-1 rounded-full ${color}`}>
+                  <AlertTriangle className="w-3 h-3 mr-1" />
+                  <span>汚染レベル: {pollutionLevel}</span>
+                </div>
+              </div>
+              <div className="flex items-center text-xs text-gray-500 mb-1">
+                <MapPin className="w-3 h-3 mr-1" />
+                <span>{timeAgo}</span>
+              </div>
+              <p className="text-sm text-gray-600 line-clamp-2">{comment}</p>
+              <div className={`grid ${getGridClass(photoCount)} gap-1 mt-2`}>
+                {Array.from({ length: Math.min(photoCount, 4) }).map((_, j) => (
+                  <div key={j} className="aspect-square bg-gray-100 rounded overflow-hidden">
+                    <Image
+                      src={`/placeholder-4swjl.png?height=120&width=120&text=写真${j + 1}`}
+                      width={120}
+                      height={120}
+                      alt={`写真 ${j + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="flex items-center text-xs text-gray-500 mb-1">
-              {dateIcon}
-              <span>{timeAgo}</span>
-            </div>
-            <p className="text-sm text-gray-600 line-clamp-2">{comment}</p>
-            <div className={`grid ${getGridClass(photoCount)} gap-1 mt-2`}>
-              {Array.from({ length: photoCount }).map((_, j) => (
-                <div key={j} className="aspect-square bg-gray-100 rounded overflow-hidden">
-                  <Image
-                    src={`/placeholder.svg?key=uk3bw&key=vkh4z&key=nef4y&key=9db21&key=j75nv&key=b69vg&key=8zii0&key=4xmd6&key=38j5r&height=40&width=40&text=写真${j + 1}`}
-                    width={40}
-                    height={40}
-                    alt={`写真 ${j + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ))}
-            </div>
           </div>
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </Link>
   )
 }
