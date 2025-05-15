@@ -103,6 +103,7 @@ export default function AchievementsPage() {
               location: "東京都渋谷区代々木公園付近",
               timeAgo: "1週間前",
               duration: 45,
+              distance: "0.5km",
               comment: "公園内のゴミ拾いを行いました。合計で45Lのゴミ袋1つ分を回収しました。",
               hasReward: true,
               rewardAmount: 150,
@@ -113,6 +114,7 @@ export default function AchievementsPage() {
               location: "東京都渋谷区代々木公園付近",
               timeAgo: "2週間前",
               duration: 60,
+              distance: "0.8km",
               comment: "公園内のゴミ拾いを行いました。合計で45Lのゴミ袋2つ分を回収しました。",
               hasReward: true,
               rewardAmount: 200,
@@ -122,6 +124,7 @@ export default function AchievementsPage() {
               location: "東京都渋谷区代々木公園付近",
               timeAgo: "3週間前",
               duration: 75,
+              distance: "1.2km",
               comment: "公園内のゴミ拾いを行いました。合計で45Lのゴミ袋3つ分を回収しました。",
               hasReward: false,
             },
@@ -132,6 +135,7 @@ export default function AchievementsPage() {
               location={item.location}
               timeAgo={item.timeAgo}
               duration={item.duration}
+              distance={item.distance}
               comment={item.comment}
               hasReward={item.hasReward}
               rewardAmount={item.rewardAmount}
