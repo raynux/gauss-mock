@@ -4,9 +4,18 @@ import { useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
-import { MapPin, Clock, Ruler, Calendar, Trash2 } from "lucide-react"
+import { MapPin, Clock, Ruler, Calendar, Trash2, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/ui/drawer"
 
 export default function CleaningReportSocialSharePage() {
   const searchParams = useSearchParams()
@@ -17,6 +26,16 @@ export default function CleaningReportSocialSharePage() {
   useEffect(() => {
     setIsClient(true)
   }, [])
+
+  // 写真ドロワー用の状態
+  const [selectedPhoto, setSelectedPhoto] = useState<{ title: string; image: string } | null>(null)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
+  // 写真をタップしたときの処理
+  const openPhotoDrawer = (photo: { title: string; image: string }) => {
+    setSelectedPhoto(photo)
+    setIsDrawerOpen(true)
+  }
 
   // ユーザーデータ（実際のアプリではAPIから取得）
   const userData = {
@@ -190,7 +209,10 @@ export default function CleaningReportSocialSharePage() {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 {/* スタート地点の写真 */}
-                <div className="relative rounded-lg overflow-hidden">
+                <div
+                  className="relative rounded-lg overflow-hidden cursor-pointer"
+                  onClick={() => openPhotoDrawer(reportPhotos.startPoint)}
+                >
                   <div className="aspect-[3/4]">
                     <Image
                       src={reportPhotos.startPoint.image || "/placeholder.svg"}
@@ -207,7 +229,11 @@ export default function CleaningReportSocialSharePage() {
 
                 {/* 清掃中の写真 */}
                 {reportPhotos.cleaningPhotos.map((photo, index) => (
-                  <div key={`cleaning-${index}`} className="relative rounded-lg overflow-hidden">
+                  <div
+                    key={`cleaning-${index}`}
+                    className="relative rounded-lg overflow-hidden cursor-pointer"
+                    onClick={() => openPhotoDrawer(photo)}
+                  >
                     <div className="aspect-[3/4]">
                       <Image
                         src={photo.image || "/placeholder.svg"}
@@ -225,7 +251,11 @@ export default function CleaningReportSocialSharePage() {
 
                 {/* ゴミ袋の写真 */}
                 {reportPhotos.trashBags.map((photo, index) => (
-                  <div key={`trash-${index}`} className="relative rounded-lg overflow-hidden">
+                  <div
+                    key={`trash-${index}`}
+                    className="relative rounded-lg overflow-hidden cursor-pointer"
+                    onClick={() => openPhotoDrawer(photo)}
+                  >
                     <div className="aspect-[3/4]">
                       <Image
                         src={photo.image || "/placeholder.svg"}
@@ -249,7 +279,15 @@ export default function CleaningReportSocialSharePage() {
                 <span className="w-2 h-6 bg-blue-600 rounded-full mr-2"></span>
                 清掃経路
               </h3>
-              <div className="relative rounded-lg overflow-hidden">
+              <div
+                className="relative rounded-lg overflow-hidden cursor-pointer"
+                onClick={() =>
+                  openPhotoDrawer({
+                    title: "清掃経路",
+                    image: reportPhotos.mapImage,
+                  })
+                }
+              >
                 <div className="aspect-[16/9]">
                   <Image
                     src={reportPhotos.mapImage || "/placeholder.svg"}
@@ -314,6 +352,37 @@ export default function CleaningReportSocialSharePage() {
           </Link>
         </div>
       </div>
+
+      {/* 写真表示用ドロワー */}
+      <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+        <DrawerContent>
+          <DrawerHeader className="border-b border-gray-200">
+            <DrawerTitle>{selectedPhoto?.title || "写真"}</DrawerTitle>
+            <DrawerDescription>タップして閉じる</DrawerDescription>
+          </DrawerHeader>
+          <div className="p-4 flex items-center justify-center">
+            {selectedPhoto && (
+              <div className="relative max-w-full max-h-[70vh]">
+                <Image
+                  src={selectedPhoto.image || "/placeholder.svg"}
+                  alt={selectedPhoto.title}
+                  width={600}
+                  height={800}
+                  className="object-contain max-h-[70vh]"
+                />
+              </div>
+            )}
+          </div>
+          <DrawerFooter>
+            <DrawerClose asChild>
+              <Button variant="outline" className="w-full">
+                <X className="mr-2 h-4 w-4" />
+                閉じる
+              </Button>
+            </DrawerClose>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </div>
   )
 }
