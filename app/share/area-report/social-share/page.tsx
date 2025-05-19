@@ -4,9 +4,18 @@ import { useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
-import { MapPin, AlertTriangle, Calendar, Info } from "lucide-react"
+import { MapPin, AlertTriangle, Calendar, Info, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/ui/drawer"
 
 export default function AreaReportSocialSharePage() {
   const searchParams = useSearchParams()
@@ -17,6 +26,14 @@ export default function AreaReportSocialSharePage() {
   useEffect(() => {
     setIsClient(true)
   }, [])
+
+  const [selectedPhoto, setSelectedPhoto] = useState<{ title: string; image: string } | null>(null)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
+  const openPhotoDrawer = (photo: { title: string; image: string }) => {
+    setSelectedPhoto(photo)
+    setIsDrawerOpen(true)
+  }
 
   // ユーザーデータ（実際のアプリではAPIから取得）
   const userData = {
@@ -194,7 +211,10 @@ export default function AreaReportSocialSharePage() {
               </h3>
               <div className="grid grid-cols-2 gap-3">
                 {/* メイン写真 */}
-                <div className="relative rounded-lg overflow-hidden">
+                <div
+                  className="relative rounded-lg overflow-hidden cursor-pointer"
+                  onClick={() => openPhotoDrawer(reportPhotos.mainPhoto)}
+                >
                   <div className="aspect-[3/4]">
                     <Image
                       src={reportPhotos.mainPhoto.image || "/placeholder.svg"}
@@ -208,7 +228,11 @@ export default function AreaReportSocialSharePage() {
 
                 {/* 追加写真 */}
                 {reportPhotos.additionalPhotos.map((photo, index) => (
-                  <div key={`photo-${index}`} className="relative rounded-lg overflow-hidden">
+                  <div
+                    key={`photo-${index}`}
+                    className="relative rounded-lg overflow-hidden cursor-pointer"
+                    onClick={() => openPhotoDrawer(photo)}
+                  >
                     <div className="aspect-[3/4]">
                       <Image
                         src={photo.image || "/placeholder.svg"}
@@ -272,6 +296,36 @@ export default function AreaReportSocialSharePage() {
           </Link>
         </div>
       </div>
+      {/* 写真表示用ドロワー */}
+      <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+        <DrawerContent>
+          <DrawerHeader className="border-b border-gray-200">
+            <DrawerTitle>{selectedPhoto?.title || "写真"}</DrawerTitle>
+            <DrawerDescription>タップして閉じる</DrawerDescription>
+          </DrawerHeader>
+          <div className="p-4 flex items-center justify-center">
+            {selectedPhoto && (
+              <div className="relative max-w-full max-h-[70vh]">
+                <Image
+                  src={selectedPhoto.image || "/placeholder.svg"}
+                  alt={selectedPhoto.title}
+                  width={600}
+                  height={800}
+                  className="object-contain max-h-[70vh]"
+                />
+              </div>
+            )}
+          </div>
+          <DrawerFooter>
+            <DrawerClose asChild>
+              <Button variant="outline" className="w-full">
+                <X className="mr-2 h-4 w-4" />
+                閉じる
+              </Button>
+            </DrawerClose>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </div>
   )
 }
