@@ -122,7 +122,7 @@ export default function BadgesPage() {
         </Card>
         <Card>
           <CardContent className="p-3 text-center">
-            <div className="text-2xl font-bold text-black">{badges.length}</div>
+            <div className="text-2xl font-bold text-gray-600">{badges.length}</div>
             <div className="text-xs text-gray-500">すべて</div>
           </CardContent>
         </Card>
@@ -161,6 +161,25 @@ function BadgeCard({ badge }: { badge: any }) {
   const isEarned = badge.earnedDate !== null
   const progressPercentage = (badge.progress / badge.maxProgress) * 100
 
+  const getRarityStyle = (rarity: string) => {
+    return "text-white" // All rarities use white text
+  }
+
+  const getRarityBgStyle = (rarity: string) => {
+    switch (rarity) {
+      case "エピック":
+        return { backgroundColor: "rgb(102,205,10)" } // Rank 1
+      case "レア":
+        return { backgroundColor: "rgb(130,184,255)" } // Rank 2
+      case "アンコモン":
+        return { backgroundColor: "rgb(205,127,50)" } // Rank 3
+      case "コモン":
+        return { backgroundColor: "rgb(192,192,192)" } // Rank 4
+      default:
+        return { backgroundColor: "rgb(192,192,192)" }
+    }
+  }
+
   return (
     <Link href={`/profile/badges/${badge.id}`}>
       <Card className={`hover:shadow-md transition-shadow mb-4`}>
@@ -176,15 +195,8 @@ function BadgeCard({ badge }: { badge: any }) {
               <div className="flex items-center justify-between mb-1">
                 <h3 className="font-medium text-lg">{badge.name}</h3>
                 <span
-                  className={`text-xs px-2 py-1 rounded-full ${
-                    badge.rarity === "レア"
-                      ? "bg-yellow-100 text-yellow-800"
-                      : badge.rarity === "エピック"
-                        ? "bg-purple-100 text-purple-800"
-                        : badge.rarity === "アンコモン"
-                          ? "bg-blue-100 text-blue-800"
-                          : "bg-gray-100 text-gray-800"
-                  }`}
+                  className={`text-xs px-2 py-1 rounded-full ${getRarityStyle(badge.rarity)}`}
+                  style={getRarityBgStyle(badge.rarity)}
                 >
                   {badge.rarity}
                 </span>
