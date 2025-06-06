@@ -6,6 +6,43 @@ import Link from "next/link"
 import Image from "next/image"
 
 export default function Home() {
+  // おすすめミッションのデータ（スポンサー情報を追加）
+  const recommendedMissions = [
+    {
+      id: "mission-1",
+      title: "東京都新宿区 1",
+      distance: "500m",
+      reward: 300,
+      deadline: "2日後",
+      topSponsor: {
+        name: "新宿区役所",
+        avatar: "/placeholder.svg?height=32&width=32&text=新宿",
+      },
+    },
+    {
+      id: "mission-2",
+      title: "東京都新宿区 2",
+      distance: "800m",
+      reward: 600,
+      deadline: "3日後",
+      topSponsor: {
+        name: "MeGo株式会社",
+        avatar: "/placeholder.svg?height=32&width=32&text=MeGo",
+      },
+    },
+    {
+      id: "mission-3",
+      title: "東京都新宿区 3",
+      distance: "1.2km",
+      reward: 900,
+      deadline: "5日後",
+      topSponsor: {
+        name: "エコプロジェクト",
+        avatar: "/placeholder.svg?height=32&width=32&text=エコ",
+      },
+    },
+  ]
+
   return (
     <div className="home pb-6">
       <div className="p-4 pt-8">
@@ -21,14 +58,15 @@ export default function Home() {
           </Link>
         </div>
         <div className="flex overflow-x-auto pb-2 -mx-1 scrollbar-hide">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="px-1 min-w-[280px]">
+          {recommendedMissions.map((mission, index) => (
+            <div key={mission.id} className="px-1 min-w-[280px]">
               <MissionCard
-                id={`mission-${i}`}
-                title={`東京都新宿区 ${i}`}
-                distance="500m"
-                reward={300 * i}
-                deadline="2日後"
+                id={mission.id}
+                title={mission.title}
+                distance={mission.distance}
+                reward={mission.reward}
+                deadline={mission.deadline}
+                topSponsor={mission.topSponsor}
               />
             </div>
           ))}
@@ -43,7 +81,7 @@ export default function Home() {
                 <Badge className="w-5 h-5 mr-2" />
                 バッジ進捗
               </CardTitle>
-              <Link href="/profile" className="text-sm text-gray-500">
+              <Link href="/profile/badges" className="text-sm text-gray-500">
                 すべて見る
               </Link>
             </div>
@@ -112,7 +150,7 @@ export default function Home() {
                 <BadgeCheck className="w-5 h-5 mr-2" />
                 最近の活動
               </CardTitle>
-              <Link href="/profile" className="text-sm text-gray-500">
+              <Link href="/profile/badges" className="text-sm text-gray-500">
                 もっと見る
               </Link>
             </div>

@@ -137,21 +137,61 @@ export default function ProfilePage() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-4 gap-3">
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-              <div
-                key={i}
-                className={`aspect-square rounded-md flex items-center justify-center ${i <= 3 ? "bg-gray-200" : "bg-gray-100 border border-dashed border-gray-300"}`}
-              >
-                {i <= 3 ? (
-                  <BadgeCheck
-                    className={`h-8 w-8 ${i === 1 ? "text-green-500" : i === 2 ? "text-teal-500" : "text-orange-500"}`}
-                  />
-                ) : (
-                  <span className="text-gray-400 text-xs">未獲得</span>
-                )}
-              </div>
-            ))}
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { id: 1, name: "清掃マスター", earned: true },
+              { id: 2, name: "エリアレポーター", earned: true },
+              { id: 3, name: "チームプレイヤー", earned: true },
+              { id: 4, name: "初心者", earned: true },
+              { id: 5, name: "継続者", earned: true },
+              { id: 6, name: "地域貢献者", earned: false },
+              { id: 7, name: "環境守護者", earned: false },
+              { id: 8, name: "コミュニティリーダー", earned: false },
+              { id: 9, name: "写真家", earned: false },
+              { id: 10, name: "早起き清掃員", earned: false },
+              { id: 11, name: "夜間パトロール", earned: false },
+              { id: 12, name: "季節の清掃員", earned: false },
+              { id: 13, name: "ベテラン", earned: false },
+              { id: 14, name: "プラチナ会員", earned: false },
+              { id: 15, name: "レジェンド", earned: false },
+            ]
+              .filter((badge) => badge.earned)
+              .slice(0, 8)
+              .map((badge) => (
+                <Link href={`/profile/badges/${badge.id}`} key={badge.id} className="block">
+                  <div className="flex flex-col items-center p-2 rounded-md hover:bg-gray-50 transition-colors">
+                    <div
+                      className={`w-16 h-16 rounded-md flex items-center justify-center ${
+                        badge.earned ? "bg-gray-200" : "bg-gray-100 border border-dashed border-gray-300"
+                      }`}
+                    >
+                      {badge.earned ? (
+                        <BadgeCheck
+                          className={`h-8 w-8 ${
+                            badge.id === 1
+                              ? "text-green-500"
+                              : badge.id === 2
+                                ? "text-teal-500"
+                                : badge.id === 3
+                                  ? "text-orange-500"
+                                  : badge.id === 4
+                                    ? "text-blue-500"
+                                    : "text-purple-500"
+                          }`}
+                        />
+                      ) : (
+                        <span className="text-gray-400 text-xs">未獲得</span>
+                      )}
+                    </div>
+                    <span className="text-xs text-center font-medium line-clamp-2 mt-1">{badge.name}</span>
+                  </div>
+                </Link>
+              ))}
+          </div>
+          <div className="mt-3 text-center">
+            <Link href="/profile/badges" className="text-sm text-blue-600 hover:text-blue-800">
+              すべて見る
+            </Link>
           </div>
         </CardContent>
       </Card>

@@ -87,9 +87,7 @@ export default function MissionCard({
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <span>
-                  <span className="font-medium">トップスポンサー:</span> {topSponsor.name}
-                </span>
+                <span>{topSponsor.name}</span>
               </div>
             )}
           </div>
