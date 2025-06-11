@@ -1,6 +1,6 @@
 "use client"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowLeft, Calendar } from "lucide-react"
+import { ArrowLeft, Calendar, Sparkles, MapPinned, ClipboardCheck, PiggyBank, HandHeart } from "lucide-react"
 import Link from "next/link"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -11,86 +11,86 @@ export default function BadgesPage() {
     {
       id: 1,
       name: "清掃マスター",
-      icon: "🏆",
-      color: "text-yellow-500",
-      bgColor: "bg-yellow-50",
-      borderColor: "border-yellow-200",
+      icon: Sparkles,
       description: "50回以上の清掃活動に参加した証",
       progress: 32,
       maxProgress: 50,
       earnedDate: null,
       category: "清掃活動",
       rarity: "レア",
+      chipColor: "rgb(130,184,255)",
+      iconColor: "rgb(130,184,255)",
+      iconBgColor: "rgba(130,184,255,0.1)",
     },
     {
       id: 2,
       name: "エリアレポーター",
-      icon: "📍",
-      color: "text-blue-500",
-      bgColor: "bg-blue-50",
-      borderColor: "border-blue-200",
+      icon: MapPinned,
       description: "100件以上のエリアレポートを投稿した証",
       progress: 67,
       maxProgress: 100,
       earnedDate: null,
       category: "レポート活動",
       rarity: "エピック",
+      chipColor: "rgb(102,205,10)",
+      iconColor: "rgb(102,205,10)",
+      iconBgColor: "rgba(102,205,10,0.1)",
     },
     {
       id: 3,
       name: "チームプレイヤー",
-      icon: "👥",
-      color: "text-green-500",
-      bgColor: "bg-green-50",
-      borderColor: "border-green-200",
+      icon: ClipboardCheck,
       description: "5つ以上のグループ活動に参加した証",
       progress: 2,
       maxProgress: 5,
       earnedDate: null,
       category: "コミュニティ",
       rarity: "コモン",
+      chipColor: "rgb(192,192,192)",
+      iconColor: "rgb(192,192,192)",
+      iconBgColor: "rgba(192,192,192,0.1)",
     },
     {
       id: 4,
       name: "初心者",
-      icon: "🌱",
-      color: "text-green-400",
-      bgColor: "bg-green-50",
-      borderColor: "border-green-200",
+      icon: PiggyBank,
       description: "初回の清掃活動に参加した証",
       progress: 1,
       maxProgress: 1,
       earnedDate: "2025年4月15日",
       category: "清掃活動",
       rarity: "コモン",
+      chipColor: "rgb(192,192,192)",
+      iconColor: "rgb(192,192,192)",
+      iconBgColor: "rgba(192,192,192,0.1)",
     },
     {
       id: 5,
       name: "継続者",
-      icon: "📅",
-      color: "text-purple-500",
-      bgColor: "bg-purple-50",
-      borderColor: "border-purple-200",
+      icon: HandHeart,
       description: "7日連続で活動に参加した証",
       progress: 7,
       maxProgress: 7,
       earnedDate: "2025年4月22日",
       category: "継続活動",
       rarity: "アンコモン",
+      chipColor: "rgb(205,127,50)",
+      iconColor: "rgb(205,127,50)",
+      iconBgColor: "rgba(205,127,50,0.1)",
     },
     {
       id: 6,
       name: "地域貢献者",
-      icon: "🏘️",
-      color: "text-indigo-500",
-      bgColor: "bg-indigo-50",
-      borderColor: "border-indigo-200",
+      icon: Sparkles,
       description: "地域の環境改善に大きく貢献した証",
       progress: 15,
       maxProgress: 20,
       earnedDate: null,
       category: "コミュニティ",
       rarity: "レア",
+      chipColor: "rgb(130,184,255)",
+      iconColor: "rgb(130,184,255)",
+      iconBgColor: "rgba(130,184,255,0.1)",
     },
   ]
 
@@ -160,25 +160,7 @@ export default function BadgesPage() {
 function BadgeCard({ badge }: { badge: any }) {
   const isEarned = badge.earnedDate !== null
   const progressPercentage = (badge.progress / badge.maxProgress) * 100
-
-  const getRarityStyle = (rarity: string) => {
-    return "text-white" // All rarities use white text
-  }
-
-  const getRarityBgStyle = (rarity: string) => {
-    switch (rarity) {
-      case "エピック":
-        return { backgroundColor: "rgb(102,205,10)" } // Rank 1
-      case "レア":
-        return { backgroundColor: "rgb(130,184,255)" } // Rank 2
-      case "アンコモン":
-        return { backgroundColor: "rgb(205,127,50)" } // Rank 3
-      case "コモン":
-        return { backgroundColor: "rgb(192,192,192)" } // Rank 4
-      default:
-        return { backgroundColor: "rgb(192,192,192)" }
-    }
-  }
+  const IconComponent = badge.icon
 
   return (
     <Link href={`/profile/badges/${badge.id}`}>
@@ -186,17 +168,21 @@ function BadgeCard({ badge }: { badge: any }) {
         <CardContent className="p-4">
           <div className="flex items-center">
             <div
-              className={`w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mr-4 ${isEarned ? "" : "grayscale opacity-50"}`}
+              className={`w-16 h-16 rounded-full border-2 flex items-center justify-center mr-4 ${isEarned ? "" : "grayscale opacity-50"}`}
+              style={{
+                backgroundColor: isEarned ? badge.iconBgColor : "rgba(229, 231, 235, 0.1)",
+                borderColor: isEarned ? badge.iconColor : "rgb(229, 231, 235)",
+              }}
             >
-              <span className={`text-3xl ${badge.color}`}>{badge.icon}</span>
+              <IconComponent className="w-8 h-8" style={{ color: isEarned ? badge.iconColor : "rgb(156, 163, 175)" }} />
             </div>
 
             <div className="flex-1">
               <div className="flex items-center justify-between mb-1">
                 <h3 className="font-medium text-lg">{badge.name}</h3>
                 <span
-                  className={`text-xs px-2 py-1 rounded-full ${getRarityStyle(badge.rarity)}`}
-                  style={getRarityBgStyle(badge.rarity)}
+                  className="text-xs px-2 py-1 rounded-full text-white"
+                  style={{ backgroundColor: badge.chipColor }}
                 >
                   {badge.rarity}
                 </span>

@@ -118,6 +118,7 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
         description: "50回以上の清掃活動に参加",
         icon: <Award className="w-8 h-8 text-white" />,
         color: "bg-yellow-500",
+        earned: true,
       },
       {
         id: 2,
@@ -125,6 +126,7 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
         description: "100件以上のエリアレポートを投稿",
         icon: <Shield className="w-8 h-8 text-white" />,
         color: "bg-blue-500",
+        earned: true,
       },
       {
         id: 3,
@@ -132,6 +134,15 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
         description: "5つ以上のミッションを作成",
         icon: <Star className="w-8 h-8 text-white" />,
         color: "bg-purple-500",
+        earned: true,
+      },
+      {
+        id: 4,
+        name: "新バッジ",
+        description: "新しいバッジの説明",
+        icon: <Star className="w-8 h-8 text-white" />,
+        color: "bg-purple-500",
+        earned: false,
       },
     ],
     socialLinks: [
@@ -265,17 +276,42 @@ export default function UserProfilePage({ params }: { params: { id: string } }) 
           <Shield className="w-5 h-5 mr-1 text-indigo-500" />
           バッジコレクション
         </h2>
-        <div className="grid grid-cols-3 gap-2">
-          {userData.badges.map((badge) => (
-            <UserBadge
-              key={badge.id}
-              icon={badge.icon}
-              name={badge.name}
-              description={badge.description}
-              color={badge.color}
-            />
-          ))}
-        </div>
+        <Card>
+          <CardContent className="p-4">
+            <div className="grid grid-cols-3 gap-2">
+              {userData.badges
+                .filter((badge) => badge.earned)
+                .slice(0, 8)
+                .map((badge) => (
+                  <Link href={`/profile/badges/${badge.id}`} key={badge.id} className="block">
+                    <div className="flex flex-col items-center p-2 rounded-md hover:bg-gray-50 transition-colors">
+                      <div className="w-16 h-16 rounded-md flex items-center justify-center bg-gray-200">
+                        <BadgeCheck
+                          className={`h-8 w-8 ${
+                            badge.id === 1
+                              ? "text-green-500"
+                              : badge.id === 2
+                                ? "text-teal-500"
+                                : badge.id === 3
+                                  ? "text-orange-500"
+                                  : badge.id === 4
+                                    ? "text-blue-500"
+                                    : "text-purple-500"
+                          }`}
+                        />
+                      </div>
+                      <span className="text-xs text-center font-medium line-clamp-2 mt-1">{badge.name}</span>
+                    </div>
+                  </Link>
+                ))}
+            </div>
+            <div className="mt-3 text-center">
+              <Link href="/profile/badges" className="text-sm text-blue-600 hover:text-blue-800">
+                すべて見る
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* 詳細実績タブ */}
