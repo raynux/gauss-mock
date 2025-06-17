@@ -161,7 +161,7 @@ export default function AreaReportSocialSharePage() {
                   <AlertTriangle className={`w-5 h-5 mr-2 ${levelColors.text}`} />
                   <h3 className={`font-bold ${levelColors.text}`}>汚染レベル: {userData.pollutionLevel}</h3>
                 </div>
-                <p className={`text-sm ${levelColors.text}`}>このエリアは「{userData.pollutionText}」状態です。</p>
+                <p className={`text-sm ${levelColors.text}`}>このエリア���「{userData.pollutionText}」状態です。</p>
               </div>
             </div>
 
