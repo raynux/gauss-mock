@@ -171,7 +171,6 @@ export default function RankingPage() {
     <div className="ranking-page p-4 pt-8 pb-20">
       <header className="text-center mb-6">
         <h1 className="text-2xl font-bold mb-2">ランキング</h1>
-        
       </header>
 
       {/* 期間フィルター */}
@@ -313,10 +312,7 @@ export default function RankingPage() {
             {currentRanking.map((user) => (
               <Link key={user.id} href={`/user/${user.id}`} className="block p-4">
                 <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-2 w-12">
-                    {getRankIcon(user.rank)}
-                    <span className="font-bold text-sm">{user.rank}</span>
-                  </div>
+                  <div className="flex items-center gap-2 w-12">{getRankIcon(user.rank)}</div>
                   <Avatar className="w-10 h-10">
                     <AvatarImage src={user.avatar || "/placeholder.svg"} alt={user.name} />
                     <AvatarFallback>{user.name[0]}</AvatarFallback>

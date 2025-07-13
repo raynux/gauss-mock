@@ -1,7 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card"
-import { Trash2, Clock, MapPin } from "lucide-react"
+import { Trash2, Clock, MapPin, Share, Eye } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
 
 interface CleaningReportCardProps {
   id: number
@@ -48,7 +49,14 @@ export default function CleaningReportCard({
                 <MapPin className="w-3 h-3 mr-1.5" />
                 <span>距離: {distance}</span>
               </div>
-              <p className="text-sm text-gray-600">{comment}</p>
+            </div>
+            <div className="flex flex-col gap-2">
+              <Button size="sm" variant="outline" className="h-8 w-8 p-0 bg-transparent">
+                <Share className="h-4 w-4" />
+              </Button>
+              <Button size="sm" variant="outline" className="h-8 w-8 p-0 bg-transparent">
+                <Eye className="h-4 w-4" />
+              </Button>
             </div>
           </div>
         </CardContent>
