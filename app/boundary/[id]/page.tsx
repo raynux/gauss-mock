@@ -159,6 +159,7 @@ export default function BoundaryDetailPage({ params }: { params: { id: string } 
                   maxReward: 200,
                   comment:
                     "渋谷川周辺のゴミ拾いプロジェクトです。最近の雨で川沿いにゴミが増えています。地域の環境を守るため、みんなで協力して清掃活動を行いましょう。",
+                  photo: "/placeholder.svg?height=120&width=120&text=川沿い清掃",
                 },
                 {
                   location: "宮益坂付近",
@@ -175,6 +176,7 @@ export default function BoundaryDetailPage({ params }: { params: { id: string } 
                   maxReward: 150,
                   comment:
                     "清掃活動の様子を写真に収めるミッションです。活動前後の比較写真や参加者の様子など、多角的に撮影してください。",
+                  photo: "/placeholder.svg?height=120&width=120&text=活動写真",
                 },
               ].map((mission, index) => (
                 <div key={index} className="p-4 border rounded-lg">
@@ -200,6 +202,18 @@ export default function BoundaryDetailPage({ params }: { params: { id: string } 
                   </div>
 
                   <p className="text-sm text-gray-600 mb-3">{mission.comment}</p>
+
+                  {mission.photo && (
+                    <div className="mb-3">
+                      <Image
+                        src={mission.photo || "/placeholder.svg"}
+                        width={120}
+                        height={80}
+                        alt={`${mission.location}の写真`}
+                        className="w-full max-w-xs h-20 object-cover rounded-md"
+                      />
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

@@ -25,7 +25,7 @@ export default function BottomNavigation() {
       </Link>
       <Link href="/post" className="flex flex-col items-center w-1/5">
         <PlusSquare className={`h-6 w-6 ${isActive("/post") ? "text-black" : "text-gray-400"}`} />
-        <span className={`text-xs mt-1 ${isActive("/post") ? "text-black" : "text-gray-400"}`}>投稿</span>
+        <span className={`text-xs mt-1 ${isActive("/post") ? "text-black" : "text-gray-400"}`}>行動</span>
       </Link>
       <Link href="/ranking" className="flex flex-col items-center w-1/5">
         <Trophy className={`h-6 w-6 ${isActive("/ranking") ? "text-black" : "text-gray-400"}`} />
